@@ -88,17 +88,17 @@ int SensorInterface::readSerial(){
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
 
-
-   stringstream resultStream;
-   string result;
+   char result[4];
+   int index = 0;
 
    while (serialDataAvail (fd)) {
-      resultStream << serialGetchar(fd);
+      result[index]= serialGetchar(fd);
+      index++;
       printf ("%c", serialGetchar(fd));
    }
 
-   resultStream >> result;  
-   cout << "Test: " << result << endl;
+ 
+  
 
    serialClose(fd); 
    return 0; 
