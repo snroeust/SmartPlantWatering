@@ -4,5 +4,16 @@ all: server_web.o
 server_web.o: server_web.c
 	gcc -c server_web.c
 
+
+SensorHandler: SensorHandlerMain.o SensorInterface.o 
+		g++ SensorHandlerMain.o SensorInterface.o -o SensorHandler
+
+SensorInterface.o: SensorInterface.cpp
+		g++ -c SensorInterface.cpp -std=c++11
+
+SensorHandlerMain.o: SensorHandlerMain.cpp
+		g++ -c SensorHandlerMain.cpp -std=c++11
+
+
 clean:
-	rm *.o server_web
+	rm *.o server_web SensorHandler
