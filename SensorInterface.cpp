@@ -101,7 +101,7 @@ int SensorInterface::readSerial(){
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
 
-   char result[4];
+   char result[] = {0,0,0,0};
    int index = 0;
 
    while (serialDataAvail (fd)) {
