@@ -101,21 +101,24 @@ int SensorInterface::readSerial(){
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
 
-   char result[] = {0,0,0,0};
-   int index = 0;
+   char result[4];
+   int index =0
 
    while (serialDataAvail (fd)) {
       char tmp = serialGetchar(fd);
-      result[index]= tmp;
-      index++;
-      printf ("%c", tmp);
-   }
+      result[index] = tmp;
+      index++
 
-   string tmpRes(result);
-   cout << tmpRes << "-------" << endl;
+      printf ("%c\n", tmp);
+   }
+   string tmpResult(result);
+   cout << stoi(tmpResult) << endl;
+
+
    serialClose(fd); 
    return 0; 
 }
+
 
 void SensorInterface::setRelais(bool on){
      
