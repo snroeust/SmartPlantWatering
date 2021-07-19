@@ -1,8 +1,8 @@
-all:  main.o 
-		g++ -lwiringPi main.o -o SmartPlantWatering
+all: server_web.o
+	gcc server_web.o -o server_web
 
-main.o: main.cpp
-		g++ -c -lwiringPi main.cpp -std=c++11
+server_web.o: server_web.c
+	gcc -c server_web.c
 
 clean:
-		rm *.o SmartPlantWatering
+	rm *.o server_web
