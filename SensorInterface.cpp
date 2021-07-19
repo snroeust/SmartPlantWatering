@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <wiringPi.h>
 #include <wiringSerial.h>
+#include <sstream>
 
 
 using namespace std;
@@ -86,13 +87,19 @@ int SensorInterface::readSerial(){
 
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
-   string result = "";
+
+
+   stringstream resultStream;
+   string result;
 
    while (serialDataAvail (fd)) {
-      result = result + serialGetchar(fd);
+      resultStream << serialGetchar(fd);
       printf ("%c", serialGetchar(fd));
-      cout << "Test: " << result << endl;
    }
+   
+   resultStream >> result;  
+   cout << "Test: " << result << endl;
+
    serialClose(fd);  
 }
 
