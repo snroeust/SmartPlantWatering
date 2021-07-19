@@ -92,9 +92,10 @@ int SensorInterface::readSerial(){
    int index = 0;
 
    while (serialDataAvail (fd)) {
-      result[index]= serialGetchar(fd);
+      char tmp = serialGetchar(fd);
+      result[index]= tmp;
       index++;
-      printf ("%c", serialGetchar(fd));
+      printf ("%c", tmp);
    }
 
  
