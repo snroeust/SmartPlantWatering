@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-//#include <wiringPi.h>
+#include <wiringPi.h>
 #include <wiringSerial.h>
 
 
@@ -19,7 +19,7 @@ SensorInterface::SensorInterface(){
    airHumidity = 0;
    this->setDHTDate();
    this->readSerial();
-   
+
 }
 
 
@@ -71,7 +71,7 @@ void SensorInterface::setDHTDate(){
 }
 
 
-void SensorInterface::readSerial(){
+int SensorInterface::readSerial(){
 
    int fd;
    // Setup serial port on ODROID

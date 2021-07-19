@@ -21,10 +21,10 @@ class SensorInterface {
 
   
         std::string executeShell(std::string command);
-        
+
         void setDHTDate();
-        void readSerial();
-        void setRelais();
+        int readSerial();
+        void setRelais(bool);
 
         
 
