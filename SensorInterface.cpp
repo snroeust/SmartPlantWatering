@@ -96,11 +96,12 @@ int SensorInterface::readSerial(){
       resultStream << serialGetchar(fd);
       printf ("%c", serialGetchar(fd));
    }
-   
+
    resultStream >> result;  
    cout << "Test: " << result << endl;
 
-   serialClose(fd);  
+   serialClose(fd); 
+   return 0; 
 }
 
 void SensorInterface::setRelais(bool on){
