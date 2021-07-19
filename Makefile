@@ -9,7 +9,7 @@ SensorHandler: SensorHandlerMain.o SensorInterface.o
 		g++ SensorHandlerMain.o SensorInterface.o -o SensorHandler
 
 SensorInterface.o: SensorInterface.cpp
-		g++ -c SensorInterface.cpp -std=c++11
+		g++ -c -lwiringPi SensorInterface.cpp -std=c++11
 
 SensorHandlerMain.o: SensorHandlerMain.cpp
 		g++ -c SensorHandlerMain.cpp -std=c++11
