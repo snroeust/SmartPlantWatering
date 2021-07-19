@@ -108,12 +108,9 @@ int SensorInterface::readSerial(){
       char tmp = serialGetchar(fd);
       result[index] = tmp;
       index++;
-
-      printf ("%c\n", tmp);
    }
    string tmpResult(result);
    cout << stoi(tmpResult) << endl;
-
 
    serialClose(fd); 
    return 0; 
