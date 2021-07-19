@@ -55,19 +55,32 @@ string SensorInterface::executeShell(string command){
 void SensorInterface::setDHTDate(){
    string ls = this->executeShell("python3 SensorDHTData.py");
 
+
    int temperature = 20;
    int hummidity = 50;
   
    try {
       temperature = stoi(ls.substr(ls.find("Temperature:")+12, ls.find("C") - (ls.find("Temperature:")+12)));
       hummidity = stoi(ls.substr (ls.find("Humidity:")+9, ls.find("%") - (ls.find("Humidity:")+9)));
+
+      this->airTemperature = temperature;
+      this->airHumidity = hummidity;
+
    }
    catch (const std::exception& e) { 
+      if(this->airTemperature == 0 && this->airHumidity == 0){
+         this->airTemperature = temperature;
+         this->airHumidity = hummidity;
+      }
+      else{
+         this->airTemperature = this->airTemperature;
+         this->airHumidity =  this->airHumidity;
+      }
       cout << "EXCEPTION!" << endl;
    }
 
-   this->airTemperature = temperature;
-   this->airHumidity = hummidity;
+
+
    
 }
 
@@ -98,9 +111,8 @@ int SensorInterface::readSerial(){
       printf ("%c", tmp);
    }
 
- 
-  
-
+   string tmpRes(result);
+   cout << tmpRes << "-------" << endl;
    serialClose(fd); 
    return 0; 
 }
