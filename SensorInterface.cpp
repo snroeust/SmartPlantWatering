@@ -86,9 +86,12 @@ int SensorInterface::readSerial(){
 
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
+   string result = "";
 
    while (serialDataAvail (fd)) {
-            printf ("%c", serialGetchar(fd));
+      result = result + serialGetchar(fd);
+      printf ("%c", serialGetchar(fd));
+      cout << "Test: " << result << endl;
    }
    serialClose(fd);  
 }
