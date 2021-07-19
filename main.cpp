@@ -1,13 +1,24 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
+#include <stdio.h>
+#include <wiringPi.h>
 
+// LED Pin - wiringPi pin 0 is BCM_GPIO 17.
 
-int main(){
-    std::cout << "Test" << std::endl;
-    return 0;
+#define LED     1
+
+int main (void)
+{
+  printf ("Raspberry Pi - Gertboard Blink\n") ;
+
+  wiringPiSetup () ;
+
+  pinMode (LED, OUTPUT) ;
+
+  for (;;)
+  {
+    digitalWrite (LED, 1) ;     // On
+    delay (500) ;               // mS
+    digitalWrite (LED, 0) ;     // Off
+    delay (500) ;
+  }
+  return 0 ;
 }

@@ -1,8 +1,8 @@
 all:  main.o 
-		g++  main.o -o SmartPlantWatering
+		g++ -lwiringPi main.o -o SmartPlantWatering
 
 main.o: main.cpp
-		g++ -c main.cpp -std=c++11
+		g++ -c -lwiringPi main.cpp -std=c++11
 
 clean:
 		rm *.o SmartPlantWatering
