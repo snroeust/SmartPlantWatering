@@ -102,7 +102,7 @@ int SensorInterface::readSerial(){
    delay(1000);
 
    char result[4];
-   int index =0
+   int index =0;
 
    while (serialDataAvail (fd)) {
       char tmp = serialGetchar(fd);
