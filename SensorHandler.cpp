@@ -8,6 +8,12 @@
 
 #include <chrono>
 #include <thread>
+#include <thread>         // std::thread
+
+#include <mutex>          // std::mutex
+
+
+
 
 
 
@@ -44,3 +50,21 @@ void SensorHandler::SensorReaderWriter(){
 
 }
 
+void SensorHandler::WateringTimer(){
+
+}
+
+
+void SensorHandler::StopThreads(){
+    this->running = false;
+}
+
+void SensorHandler::readConfig(){
+
+    
+}
+void SensorHandler::writeData(){
+
+
+    
+}
