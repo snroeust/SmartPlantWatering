@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    body {
+      padding-top: 4.5rem;
+    }
+  </style>
+
+  <title>Smart Plant Watering</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Smart Plant Watering</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/index.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/settings.html">Settings</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="bg-light p-5 rounded">
+      <h1 class="mb-4">Dashboard</h1>
+      <div class="row">
+        <div class="col">Soil moisture (%):</div>
+        <div class="col" id="soilMoistureCol">fetching data ..</div>
+      </div>
+      <div class="row">
+        <div class="col">Temperature (°C):</div>
+        <div class="col" id="temperatureCol">fetching data ..</div>
+      </div>
+      <div class="row">
+        <div class="col">Air Humidity (%):</div>
+        <div class="col" id="airHumidityCol">fetching data ..</div>
+      </div>
+  </main>
+
+  <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script>
+    fetch('data.json')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        appendData(data);
+      })
+      .catch(function (err) {
+        console.log('error: ' + err);
+      });
+    function appendData(data) {
+      var mainContainer = document.getElementById("soilMoistureCol");
+      mainContainer.innerHTML = data.soilMoisture;
+      var mainContainer = document.getElementById("temperatureCol");
+      mainContainer.innerHTML = data.temperature;
+      var mainContainer = document.getElementById("airHumidityCol");
+      mainContainer.innerHTML = data.airHumidity;
+      mainContainer.setAttribute()
+    }
+
+  </script>
+</body>
+
+</html>

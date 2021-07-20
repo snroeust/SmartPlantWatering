@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    body {
+      padding-top: 4.5rem;
+    }
+  </style>
+
+  <title>Settings - Smart Plant Watering</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Smart Plant Watering</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/index.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/settings.html">Settings</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="bg-light p-5 rounded">
+      <h1 class="mb-4">Settings</h1>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="mode" id="mode0">
+        <label class="form-check-label" for="mode1">
+          No automatic watering
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="mode" id="mode1">
+        <label class="form-check-label" for="mode2">
+          automatic watering based on time
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="mode" id="mode2">
+        <label class="form-check-label" for="mode3">
+          automatic waterting based on sensor values
+        </label>
+      </div>
+
+      <hr>
+      <h5>automatic Watering based on time</h5>
+      <div class="row mb-2 ">
+        <label for="interval" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump every</label>
+        <div class="col-auto">
+          <div class="input-group input-group-sm">
+            <input type="number" class="form-control" placeholder="interval" aria-label="interval" aria-describedby="seconds-addon" id="interval">
+            <span class="input-group-text" id="seconds-addon">seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2 ">
+        <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
+        <div class="col-auto">
+          <div class="input-group input-group-sm">
+            <input type="number" class="form-control" placeholder="duration" aria-label="duration" aria-describedby="seconds-addon" id="mode1duration">
+            <span class="input-group-text" id="seconds-addon">seconds</span>
+          </div>
+        </div>
+      </div>
+      
+      <hr>
+      <h5>automatic Watering based on sensor values</h5>
+      <div class="row mb-2 ">
+        <label for="threshold" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump if soil moisture below</label>
+        <div class="col-auto">
+          <div class="input-group input-group-sm">
+            <input type="number" class="form-control" placeholder="threshold" aria-label="threshold" aria-describedby="seconds-addon" step="0.1" id="threshold">
+            <span class="input-group-text" id="seconds-addon">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
+        <div class="col-auto">
+          <div class="input-group input-group-sm">
+            <input type="number" class="form-control" placeholder="duration" aria-label="duration" aria-describedby="seconds-addon" id="mode2duration">
+            <span class="input-group-text" id="seconds-addon">seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-lg">Save Settings</button>
+
+
+  </main>
+
+  <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script>
+    fetch('config.json')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        appendData(data);
+      })
+      .catch(function (err) {
+        console.log('error: ' + err);
+      });
+    function appendData(data) {
+      if(data.mode == 0) {
+        document.getElementById("mode0").checked = true;
+      } else if (data.mode == 1) {
+        document.getElementById("mode1").checked = true;
+      } else {
+        document.getElementById("mode2").checked = true;
+      }
+      document.getElementById("interval").value = data.interval;
+      document.getElementById("mode1duration").value = data.mode1duration;
+      document.getElementById("threshold").value = data.threshold;
+      document.getElementById("mode2duration").value = data.mode2duration;
+    }
+
+  </script>
+</body>
+
+</html>

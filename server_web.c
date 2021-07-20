@@ -35,8 +35,19 @@ const char *getContentTypeFromPath(const char* path) {
     //strchr returns a pointer to the last occurrence of character in str. If the character is not found, the function returns a null pointer.
     const char *last_dot = strrchr(path, '.');
     if (last_dot) {
+        
         if (strcmp(last_dot, ".htm") == 0) return "text/html";
         if (strcmp(last_dot, ".html") == 0) return "text/html";
+        if (strcmp(last_dot, ".js") == 0) return "application/javascript";
+        if (strcmp(last_dot, ".json") == 0) return "application/json";
+        if (strcmp(last_dot, ".css") == 0) return "text/css";
+        if (strcmp(last_dot, ".gif") == 0) return "image/gif";
+        if (strcmp(last_dot, ".ico") == 0) return "image/x-icon";
+        if (strcmp(last_dot, ".jpeg") == 0) return "image/jpeg";
+        if (strcmp(last_dot, ".jpg") == 0) return "image/jpeg";        
+        if (strcmp(last_dot, ".png") == 0) return "image/png";
+        if (strcmp(last_dot, ".pdf") == 0) return "application/pdf";
+        if (strcmp(last_dot, ".svg") == 0) return "image/svg+xml";
         if (strcmp(last_dot, ".txt") == 0) return "text/plain";
     }
 
@@ -127,6 +138,7 @@ void sendNotFound(struct clientInformation *client) {
 
 void sendHeaderAndFile(struct clientInformation *client, const char *path) {
     printf("sendHeaderAndFile %s %s\n", getAddressFromClient(client), path);
+    char* actualPath = malloc(256*sizeof(char));
 
     if (strlen(path) > 100) {
         sendBadRequest(client);
@@ -140,13 +152,14 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path) {
 
     //redirect to index.html in case of "GET /"
     if (strcmp(path, "/") == 0)
-        path = "index.html";
-    //else chop the first slash(first character), so u get the actual path to the file to open
-    else
-        path++; 
+        actualPath = "src/index.html";
+    else {
+        strcat(actualPath, "src");
+        strcat(actualPath, path);
+    }
 
     //open the file with read priviliges and we deal with binary data, thats why we use the b flag
-    FILE *fp = fopen(path, "rb");
+    FILE *fp = fopen(actualPath, "rb");
 
     if (!fp) {
         sendNotFound(client);
@@ -155,13 +168,13 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path) {
 
     //get the file size using fstat determining the Content-Length
     struct stat fs;
-    int fd = open(path, O_RDONLY);
+    int fd = open(actualPath, O_RDONLY);
     if (fstat(fd, &fs) == -1) {
         print_error_and_exit("couldnt tell Content-Length");
     } 
     size_t contentLength = fs.st_size;
 
-    const char *ct = getContentTypeFromPath(path);
+    const char *ct = getContentTypeFromPath(actualPath);
 
     char buffer[BUFLEN]; //2048 bytes
 
