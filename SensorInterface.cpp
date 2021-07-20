@@ -26,7 +26,7 @@ SensorInterface::SensorInterface(){
    }
    pinMode (PUMP, OUTPUT) ;
    
-   this->setDHTDate();
+   //this->setDHTDate();
    //this->readSerial();
 
 }
@@ -145,7 +145,7 @@ int SensorInterface::getAirHumidity(){
 }
 
 void SensorInterface::updateValues(){
-   this->setDHTDate();
+   //this->setDHTDate();
    //this->readSerial();
 }
 
