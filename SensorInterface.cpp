@@ -126,18 +126,18 @@ int SensorInterface::readSerial()
 
 void SensorInterface::setRelais(bool on)
 {
-
-#define PUMP 1
    wiringPiSetup();
-   pinMode(PUMP, OUTPUT);
+   pinMode(1, OUTPUT);
 
    if (on)
    {
-      digitalWrite(PUMP, 1); // On
+      digitalWrite(1, HIGH); // On
+      delay (500) ;
    }
    else
    {
-      digitalWrite(PUMP, 0); // Off
+      digitalWrite(1, LOW); // Off
+      delay (500);
    }
 }
 float SensorInterface::getSoilHumidity()
