@@ -9,6 +9,8 @@
 #include <wiringSerial.h>
 #include <sstream>
 
+#define PUMP     1
+
 
 using namespace std;
 
@@ -17,10 +19,12 @@ SensorInterface::SensorInterface(){
    soilHumidity = 50;
    airTemperature= 0;
    airHumidity = 0;
+   
+   
    if (wiringPiSetup () == -1) {
         cout << "cant start wiring Pi" << endl;
    }
-   
+   pinMode (PUMP, OUTPUT) ;
    
    this->setDHTDate();
    //this->readSerial();
@@ -123,8 +127,7 @@ int SensorInterface::readSerial(){
 
 void SensorInterface::setRelais(bool on){
      
-   #define PUMP     1
-   pinMode (PUMP, OUTPUT) ;
+ 
 
    if(on){
       digitalWrite (PUMP, 1) ;     // On
