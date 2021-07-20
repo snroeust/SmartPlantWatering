@@ -6,139 +6,112 @@
 #include <cstdint>
 #include <chrono>
 #include <thread>
-#include <thread>         // std::thread
-#include <mutex>          // std::mutex
+#include <thread> // std::thread
+#include <mutex>  // std::mutex
 #include <fstream>
 #include <sstream> //std::stringstream
-#include<ctime>
+#include <ctime>
+#include <thread>
 
-
-
-
-
-using namespace std;
-
-SensorHandler::SensorHandler(){
-    
-    this->running = true; 
-
+SensorHandler::SensorHandler()
+{
+    this->running = true;
 
     this->configData = new ConfigData();
     this->readConfig();
 
-
-    s1 = new SensorInterface();
-    this->SensorReaderWriter();  
-
+    sensorInterface = new SensorInterface();
 }
 
-SensorHandler::~SensorHandler(){
+SensorHandler::~SensorHandler()
+{
     delete this->configData;
-    delete this->s1;    
+    delete this->sensorInterface;
 }
 
-
-
-
-void SensorHandler::SensorReaderWriter(){
-    
-
-    while(this->running){
-
-          
-        
-        cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
-        s1->setRelais(true);
+void SensorHandler::SensorReaderWriter()
+{
+    std::cout << "starting Thread SensorReaderWriter" << std::endl;
+    while (this->running)
+    {
+        std::cout << sensorInterface->getSoilHumidity() << "  " << sensorInterface->getAirTemperature() << "  " << sensorInterface->getAirHumidity() << std::endl;
+        sensorInterface->setRelais(true);
         //s1->writeJson();
 
-       
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
-        
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
-        
-        s1->updateValues();
+        sensorInterface->updateValues();
         //s1->writeJson();
 
+        std::cout << sensorInterface->getSoilHumidity() << "  " << sensorInterface->getAirTemperature() << "  " << sensorInterface->getAirHumidity() << std::endl;
+        sensorInterface->setRelais(false);
 
-        cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
-        s1->setRelais(false);
-         
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     }
-
 }
 
-
-
-
-void SensorHandler::WateringTimer(){
-
-    while(this->running){
-
-
-
-
+void SensorHandler::WateringTimer()
+{
+    std::cout << "starting Thread WateringTimer" << std::endl;
+    while (this->running)
+    {
     }
-
-
 }
 
-
-void SensorHandler::StopThreads(){
+void SensorHandler::StopThreads()
+{
     this->running = false;
 }
 
-
-
-
-void SensorHandler::readConfig(){
-    int mode= 0;
+void SensorHandler::readConfig()
+{
+    int mode = 0;
     int interval = 0;
-    int mode1duration =  0;
-    float threshold=  0;
-    float mode2duration =  0;
-    
-    try{
+    int mode1duration = 0;
+    float threshold = 0;
+    float mode2duration = 0;
 
-        ifstream inFile;
+    try
+    {
+
+        std::ifstream inFile;
         inFile.open("./src/config.json"); //open the input file
 
-        stringstream strStream;
-        strStream << inFile.rdbuf(); //read the file
-        string str = strStream.str(); //str holds the content of the file
+        std::stringstream strStream;
+        strStream << inFile.rdbuf();       //read the file
+        std::string str = strStream.str(); //str holds the content of the file
 
-        cout << str << "\n" << endl;; //you can do anything with the string!!!
+        std::cout << str << "\n"
+                  << std::endl;
+        ; //you can do anything with the string!!!
 
         size_t End = str.find("}");
         size_t modePos = str.find("mode") + 6;
         size_t modeEndPos = str.find(",");
         mode = stoi(str.substr(modePos, modeEndPos - modePos));
-        string rest = str.substr(modeEndPos+1, End - (modeEndPos+1));
+        std::string rest = str.substr(modeEndPos + 1, End - (modeEndPos + 1));
 
         size_t intervalPos = rest.find("interval") + 10;
         size_t intervalEndPos = rest.find(",");
         interval = stoi(rest.substr(intervalPos, intervalEndPos - intervalPos));
-        rest = rest.substr(intervalEndPos+1, End - (intervalEndPos+1));
+        rest = rest.substr(intervalEndPos + 1, End - (intervalEndPos + 1));
 
         size_t duration1Pos = rest.find("mode1duration") + 15;
         size_t duration1EndPos = rest.find(",");
         mode1duration = stoi(rest.substr(duration1Pos, duration1EndPos - duration1Pos));
-        rest = rest.substr(duration1EndPos+1, End - (duration1EndPos+1));
+        rest = rest.substr(duration1EndPos + 1, End - (duration1EndPos + 1));
 
-        
         size_t thresholdPos = rest.find("threshold") + 11;
         size_t thresholdEndPos = rest.find(",");
         threshold = stof(rest.substr(thresholdPos, thresholdEndPos - thresholdPos));
-        rest = rest.substr(thresholdEndPos+1, End - (thresholdEndPos+1));
+        rest = rest.substr(thresholdEndPos + 1, End - (thresholdEndPos + 1));
 
-        
         size_t duration2Pos = rest.find("mode2duration") + 15;
         size_t duration2EndPos = rest.find(",");
         mode2duration = stoi(rest.substr(duration2Pos, duration2EndPos - duration2Pos));
-        rest = rest.substr(duration2EndPos+1, End - (duration2EndPos+1));
+        rest = rest.substr(duration2EndPos + 1, End - (duration2EndPos + 1));
 
-        cout << " -->  Readed Config : "<<mode << " "<< interval << " "<<mode1duration << " "<<threshold << " "<<mode2duration << " " << endl;
+        std::cout << " -->  Readed Config : " << mode << " " << interval << " " << mode1duration << " " << threshold << " " << mode2duration << " " << std::endl;
 
         mtxConfigData.lock();
         this->configData->mode = mode;
@@ -147,11 +120,11 @@ void SensorHandler::readConfig(){
         this->configData->threshold = threshold;
         this->configData->mode2duration = mode2duration;
         mtxConfigData.unlock();
-
     }
-    catch (const std::exception& e) { 
+    catch (const std::exception &e)
+    {
 
-        cout << "Exception in REad Config" << endl;
+        std::cout << "Exception in REad Config" << std::endl;
         this->configData->mode = this->configData->mode;
         this->configData->interval = this->configData->interval;
         this->configData->mode1duration = this->configData->mode1duration;
@@ -160,6 +133,18 @@ void SensorHandler::readConfig(){
     }
 }
 
+int main(void)
+{
+    
 
+    std::thread t[2];
+    //Launch the sender/receiver thread
+    t[0] = std::thread(SensorHandler::SensorReaderWriter);
+    t[1] = std::thread(SensorHandler::WateringTimer);
 
+    //Join the threads with the main thread
+    t[0].join();
+    t[1].join();
 
+    return 0;
+}

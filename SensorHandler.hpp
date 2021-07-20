@@ -11,7 +11,7 @@ class SensorHandler {
     private:
         bool running;
         std::mutex mtxSensorInterface;           // mutex for critical section
-        SensorInterface* s1;
+        SensorInterface* sensorInterface;
         std::mutex mtxConfigData;           // mutex for critical section
         ConfigData* configData;
 

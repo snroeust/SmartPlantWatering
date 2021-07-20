@@ -5,8 +5,8 @@ server_web.o: server_web.cpp
 	g++ -c server_web.cpp
 
 
-SensorHandler: SensorHandlerMain.o SensorInterface.o SensorHandler.o
-		g++ -lwiringPi SensorHandlerMain.o SensorInterface.o SensorHandler.o -o SensorHandler
+SensorHandler: SensorInterface.o SensorHandler.o
+		g++ -lwiringPi SensorInterface.o SensorHandler.o -o SensorHandler
 
 SensorInterface.o: SensorInterface.cpp
 		g++ -c -lwiringPi SensorInterface.cpp -std=c++11
@@ -14,8 +14,6 @@ SensorInterface.o: SensorInterface.cpp
 SensorHandler.o: SensorHandler.cpp
 		g++ -c -lwiringPi -pthread SensorHandler.cpp -std=c++11
 
-SensorHandlerMain.o: SensorHandlerMain.cpp
-		g++ -c -lwiringPi SensorHandlerMain.cpp -std=c++11
 
 	
 test: test.o 
