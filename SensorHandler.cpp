@@ -49,7 +49,7 @@ void SensorHandler::SensorReaderWriter(){
           
         this->s1 = new SensorInterface(); 
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
-        s1->setRelais(true);
+        //s1->setRelais(true);
         s1->writeJson();
 
        
@@ -62,7 +62,7 @@ void SensorHandler::SensorReaderWriter(){
 
 
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
-        s1->setRelais(false);
+        //s1->setRelais(false);
          
 
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds

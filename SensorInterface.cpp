@@ -19,7 +19,7 @@ SensorInterface::SensorInterface(){
    airHumidity = 0;
    wiringPiSetup ();
    this->setDHTDate();
-   //this->readSerial();
+   this->readSerial();
 
 }
 
@@ -102,7 +102,7 @@ int SensorInterface::readSerial(){
    string tmpResult(result);   
    
    try{
-      this->soilHumidity = (float)stoi(tmpResult) /10;
+      this->soilHumidity = stof(tmpResult) /10;
    }
      
    catch (const std::exception& e) { 
