@@ -10,7 +10,7 @@
 #include <mutex>          // std::mutex
 #include <fstream>
 #include <sstream> //std::stringstream
-
+#include<ctime>
 
 
 
@@ -71,6 +71,13 @@ void SensorHandler::SensorReaderWriter(){
 }
 
 void SensorHandler::WateringTimer(){
+
+    while(this->running){
+
+
+
+
+    }
 
 
 }

@@ -19,7 +19,7 @@ SensorInterface::SensorInterface(){
    airHumidity = 0;
    wiringPiSetup ();
    this->setDHTDate();
-   this->readSerial();
+   //this->readSerial();
 
 }
 
