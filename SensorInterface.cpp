@@ -124,8 +124,8 @@ void SensorInterface::setRelais(bool on){
    }
   
 }
-float SensorInterface::getSoilHumidity(){
-   return (float)this->soilHumidity / 10;
+int SensorInterface::getSoilHumidity(){
+   return this->soilHumidity;
 }
 int SensorInterface::getAirTemperature(){
    return this->airTemperature;
