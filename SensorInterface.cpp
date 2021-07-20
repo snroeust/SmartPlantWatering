@@ -24,7 +24,7 @@ SensorInterface::~SensorInterface()
 {
 }
 
-string SensorInterface::executeShell(string command)
+string SensorInterface::executeShell(std::string command)
 {
 
    char buffer[128];
@@ -50,15 +50,15 @@ string SensorInterface::executeShell(string command)
 
 void SensorInterface::setDHTDate()
 {
-   string ls = this->executeShell("python3 SensorDHTData.py");
+   std::string ls = this->executeShell("python3 SensorDHTData.py");
 
    int temperature = 20;
    int hummidity = 50;
 
    try
    {
-      temperature = stoi(ls.substr(ls.find("Temperature:") + 12, ls.find("C") - (ls.find("Temperature:") + 12)));
-      hummidity = stoi(ls.substr(ls.find("Humidity:") + 9, ls.find("%") - (ls.find("Humidity:") + 9)));
+      temperature = std::stoi(ls.substr(ls.find("Temperature:") + 12, ls.find("C") - (ls.find("Temperature:") + 12)));
+      hummidity = std::stoi(ls.substr(ls.find("Humidity:") + 9, ls.find("%") - (ls.find("Humidity:") + 9)));
 
       this->airTemperature = temperature;
       this->airHumidity = hummidity;
@@ -105,7 +105,7 @@ int SensorInterface::readSerial()
       char tmp = serialGetchar(fd);
       result[index] = tmp;
       index++;
-      cout << tmp << endl;
+      std::cout << tmp << std::endl;
    }
 
    std::string tmpResult(result);
@@ -116,8 +116,8 @@ int SensorInterface::readSerial()
    }
    catch (const std::exception &e)
    {
-      cout << "EXCEPTION SERIAL" << endl;
-      cout << tmpResult << endl;
+      std::cout << "EXCEPTION SERIAL" << std::endl;
+      std::cout << tmpResult << std::endl;
    }
 
    serialClose(fd);
@@ -162,7 +162,7 @@ void SensorInterface::updateValues()
 void SensorInterface::writeJson()
 {
    this->executeShell("sudo rm ./src/data.json");
-   string command = " echo \'{\n\t\"soilMoisture\": ";
+   std::string command = " echo \'{\n\t\"soilMoisture\": ";
    command.append(to_string(this->soilHumidity));
    command.append(",\n\t\"temperature\":");
    command.append(to_string(this->airTemperature));
