@@ -4,6 +4,16 @@
 #include <string>
 
 
+class ConfigData{
+    public:
+        int mode; 
+        int interval;
+        int mode1duration;
+        float threshold;
+        int mode2duration;
+               
+};
+
 
 class SensorInterface {    
 

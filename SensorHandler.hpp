@@ -5,14 +5,6 @@
 #include <mutex>
 #include "SensorInterface.hpp"          
 
-class ConfigData{
-    public:
-        int mode; 
-        int interval;
-        int mode1duration;
-        float threshold;
-        int mode2duration;
-};
 
 class SensorHandler {    
 
@@ -26,9 +18,7 @@ class SensorHandler {
 
     public:
         
-        // constructor
-        SensorHandler(int);
-        // default constructor
+
         SensorHandler();
         // destructor
         ~SensorHandler();
