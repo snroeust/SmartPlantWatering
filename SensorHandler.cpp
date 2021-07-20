@@ -58,7 +58,7 @@ void SensorHandler::SensorReaderWriter(){
 
         
         s1->updateValues();
-        s1->writeJson();
+        //s1->writeJson();
 
 
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
@@ -69,6 +69,9 @@ void SensorHandler::SensorReaderWriter(){
     }
 
 }
+
+
+
 
 void SensorHandler::WateringTimer(){
 

@@ -17,6 +17,11 @@ SensorInterface::SensorInterface(){
    soilHumidity = 50;
    airTemperature= 0;
    airHumidity = 0;
+   if (wiringPiSetup () == -1) {
+        cout << "cant start wiring Pi" << endl;
+        return 1 ;
+    }
+   
    
    this->setDHTDate();
    //this->readSerial();
@@ -82,15 +87,11 @@ int SensorInterface::readSerial(){
    int fd;
    // Setup serial port on ODROID
    if ((fd = serialOpen ("/dev/ttyACM0",9600)) < 0) {
-      fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+      cout << "unable to open serial Port " << endl;
       return 1 ;
    }
 
-   if (wiringPiSetup () == -1) {
-        fprintf (stdout, "Unable to start wiringPi: %s\n", strerror (errno)) ;
-        return 1 ;
-    }
-   
+
 
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
@@ -124,7 +125,6 @@ int SensorInterface::readSerial(){
 void SensorInterface::setRelais(bool on){
      
    #define PUMP     1
-   wiringPiSetup();
    pinMode (PUMP, OUTPUT) ;
 
    if(on){
