@@ -1,4 +1,3 @@
-
 #ifndef SENSORINTERFACE_H
 #define SENSORINTERFACE_H
 #include <string>
