@@ -71,9 +71,9 @@ void wateringTimer(SensorHandler *sensorHandler)
         sensorHandler->mtxConfigData.unlock();
 
         //get hummidity Value
-        sensorHandler->mtxSensorInterface.lock()
+        sensorHandler->mtxSensorInterface.lock();
         float soilHumidity = sensorHandler->soilHumidity;
-        sensorHandler->mtxSensorInterface.unlock()
+        sensorHandler->mtxSensorInterface.unlock();
 
 
         if(mode == 1){
@@ -91,7 +91,7 @@ void wateringTimer(SensorHandler *sensorHandler)
                     while(std::time(0)<EndWatering){
                         //pump
                         sensorHandler->mtxSensorInterface.lock();
-                        sensorHandler->setRelais(true);
+                        sensorHandler->sensorInterface->setRelais(true);
                         sensorHandler->mtxSensorInterface.unlock();
                         // wait 500 millisec
                         std::this_thread::sleep_for(std::chrono::milliseconds(500);
@@ -108,13 +108,13 @@ void wateringTimer(SensorHandler *sensorHandler)
         }
         else if(mode == 2){
             // automatic mode
-            if(soilHumidity < treshold){
+            if(soilHumidity < threshold){
                 //Plant need water
                 EndWatering = std::time(0) +  mode2duration;
                 while(std::time(0)<EndWatering){
                     //pump
                     sensorHandler->mtxSensorInterface.lock();
-                    sensorHandler->setRelais(true);
+                    sensorHandler->sensorInterface->setRelais(true);
                     sensorHandler->mtxSensorInterface.unlock();
                     // wait 500 millisec
                     std::this_thread::sleep_for(std::chrono::milliseconds(500);
