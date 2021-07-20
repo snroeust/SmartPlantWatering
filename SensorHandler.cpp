@@ -51,13 +51,14 @@ void SensorHandler::SensorReaderWriter(){
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
         s1->setRelais(true);
         s1->writeJson();
-        
+
         mtxSensorInterface.unlock();   
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
         
 
         mtxSensorInterface.lock();   
         s1->updateValues();
+        s1->writeJson();
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
         s1->setRelais(false);
         mtxSensorInterface.unlock();  

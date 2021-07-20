@@ -31,8 +31,6 @@ class SensorHandler {
         void StopThreads();
 
         void readConfig();
-        void writeData();
-
 
 
 };
