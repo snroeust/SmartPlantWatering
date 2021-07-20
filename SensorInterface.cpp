@@ -130,11 +130,11 @@ void SensorInterface::setRelais(bool on){
  
 
    if(on){
-      digitalWrite (PUMP, 1) ;     // On
+      digitalWrite (PUMP, HIGH) ;     // On
 
    }
    else{
-      digitalWrite (PUMP, 0) ;     // Off
+      digitalWrite (PUMP, LOW) ;     // Off
    }
   
 }
