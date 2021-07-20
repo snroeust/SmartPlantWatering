@@ -16,20 +16,14 @@ using namespace std;
 
 
 SensorInterface::SensorInterface(){
-   soilHumidity = 50;
+   soilHumidity = 0;
    airTemperature= 0;
    airHumidity = 0;
-   
-   
-   if (wiringPiSetup () == -1) {
-        cout << "cant start wiring Pi" << endl;
-   }
-   pinMode (PUMP, OUTPUT) ;
-   
-   //this->setDHTDate();
-   //this->readSerial();
+   this->setDHTDate();
+   this->readSerial();
 
 }
+
 
 SensorInterface::~SensorInterface(){
   
@@ -90,7 +84,11 @@ int SensorInterface::readSerial(){
    int fd;
    // Setup serial port on ODROID
    if ((fd = serialOpen ("/dev/ttyACM0",9600)) < 0) {
-      cout << "unable to open serial Port " << endl;
+      fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+      return 1 ;
+   }
+   if (wiringPiSetup () == -1) {
+      fprintf (stdout, "Unable to start wiringPi: %s\n", strerror (errno)) ;
       return 1 ;
    }
 
@@ -107,32 +105,24 @@ int SensorInterface::readSerial(){
    }
 
    string tmpResult(result);   
-   
-   try{
-      this->soilHumidity = stof(tmpResult) /10;
-   }
-     
-   catch (const std::exception& e) { 
-      cout << "Exception in Serial Communication. " << endl;
-      cout << tmpResult << endl;
-      this->soilHumidity = this->soilHumidity;
-   }
+   this->soilHumidity = stoi(tmpResult);
 
    serialClose(fd); 
    return 0; 
 }
 
-
 void SensorInterface::setRelais(bool on){
      
-    if(on){
-      digitalWrite (PUMP, HIGH) ;     // On
-      cout << "!!!!!!!!!" << endl;
+   #define PUMP     1
+   wiringPiSetup () ;
+   pinMode (PUMP, OUTPUT) ;
+
+   if(on){
+      digitalWrite (PUMP, 1) ;     // On
 
    }
    else{
-      digitalWrite (PUMP, LOW) ;     // Off
-      cout << "?????????" << endl;
+      digitalWrite (PUMP, 0) ;     // Off
    }
   
 }
@@ -147,8 +137,8 @@ int SensorInterface::getAirHumidity(){
 }
 
 void SensorInterface::updateValues(){
-   //this->setDHTDate();
-   //this->readSerial();
+   this->setDHTDate();
+   this->readSerial();
 }
 
 

@@ -19,17 +19,15 @@
 using namespace std;
 
 SensorHandler::SensorHandler(){
+    
     this->running = true; 
 
 
     this->configData = new ConfigData();
-
     this->readConfig();
 
 
     s1 = new SensorInterface();
-   
-
     this->SensorReaderWriter();  
 
 }
