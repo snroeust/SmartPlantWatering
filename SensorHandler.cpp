@@ -38,6 +38,8 @@ SensorHandler::~SensorHandler(){
 
 
 void SensorHandler::SensorReaderWriter(){
+
+    s1->setRelais(true);
     
 
     /*while(this->running){
@@ -64,14 +66,7 @@ void SensorHandler::SensorReaderWriter(){
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); 
     }*/
 
-    wiringPiSetup () ;
-    pinMode (1, OUTPUT) ;
-    for (;;)
-    {
-        digitalWrite (1, HIGH) ; delay (500) ;
-        digitalWrite (1,  LOW) ; delay (500) ;
-    }
-    return 0 ;
+
 
 }
 

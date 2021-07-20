@@ -9,6 +9,7 @@
 #include <wiringSerial.h>
 #include <sstream>
 
+
 #define PUMP     1
 
 
@@ -123,7 +124,7 @@ int SensorInterface::readSerial(){
 
 void SensorInterface::setRelais(bool on){
      
-   #define PUMP     1
+   /*#define PUMP     1
    wiringPiSetup () ;
    pinMode (1, OUTPUT) ;
 
@@ -133,7 +134,17 @@ void SensorInterface::setRelais(bool on){
    }
    else{
       digitalWrite (1, 0) ;     // Off
-   }
+   }*/
+
+
+   wiringPiSetup () ;
+    pinMode (1, OUTPUT) ;
+    for (;;)
+    {
+        digitalWrite (1, HIGH) ; delay (500) ;
+        digitalWrite (1,  LOW) ; delay (500) ;
+    }
+    return 0 ;
   
 }
 
