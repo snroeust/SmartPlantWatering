@@ -32,41 +32,27 @@ void parseQuerryAndCreateJSON(std::string querry)
     std::string modeSubStr = querry.substr(modePos);
     std::string choppedQuerry = querry.substr(firstAmpersand);
     std::string finalMode = modeSubStr.substr(0, modeSubStr.length() - choppedQuerry.length() - 1);
-    std::cout << modeSubStr << std::endl;
-    std::cout << choppedQuerry << std::endl;
-    std::cout << finalMode << std::endl;
 
     std::size_t intervalPos = choppedQuerry.find("interval=") + 9;
     std::size_t secondAmpersand = choppedQuerry.find("&") + 1;
     std::string intervalSubStr = choppedQuerry.substr(intervalPos);
     std::string secondChoppedQuerry = choppedQuerry.substr(secondAmpersand);
     std::string finalInterval = intervalSubStr.substr(0, intervalSubStr.length() - secondChoppedQuerry.length() - 1);
-    std::cout << intervalSubStr << std::endl;
-    std::cout << secondChoppedQuerry << std::endl;
-    std::cout << finalInterval << std::endl;
 
     std::size_t mode1durationPos = secondChoppedQuerry.find("mode1duration=") + 14;
     std::size_t thirdAmpersand = secondChoppedQuerry.find("&") + 1;
     std::string mode1durationSubStr = secondChoppedQuerry.substr(mode1durationPos);
     std::string thirdChoppedQuerry = secondChoppedQuerry.substr(thirdAmpersand);
     std::string finalMode1duration = mode1durationSubStr.substr(0, mode1durationSubStr.length() - thirdChoppedQuerry.length() - 1);
-    std::cout << mode1durationSubStr << std::endl;
-    std::cout << thirdChoppedQuerry << std::endl;
-    std::cout << finalMode1duration << std::endl;
 
     std::size_t thresholdPos = thirdChoppedQuerry.find("threshold=") + 10;
     std::size_t fourthAmpersand = thirdChoppedQuerry.find("&") + 1;
     std::string thresholdSubStr = thirdChoppedQuerry.substr(thresholdPos);
     std::string fourthChoppedQuerry = thirdChoppedQuerry.substr(fourthAmpersand);
     std::string finalThreshold = thresholdSubStr.substr(0, thresholdSubStr.length() - fourthChoppedQuerry.length() - 1);
-    std::cout << thresholdSubStr << std::endl;
-    std::cout << fourthChoppedQuerry << std::endl;
-    std::cout << finalThreshold << std::endl;
 
     std::size_t mode2durationPos = fourthChoppedQuerry.find("mode2duration=") + 14;
     std::string finalMode2duration = fourthChoppedQuerry.substr(mode2durationPos);
-
-    std::cout << finalMode2duration << std::endl;
 
     int mode = std::stoi(finalMode);
     int interval = std::stoi(finalInterval);
@@ -90,6 +76,7 @@ void parseQuerryAndCreateJSON(std::string querry)
 
     //delete json and create new one
     std::remove("src/config.json");
+    std::cout << "removed src/config.json" << std::endl;
 
     std::ofstream MyFile("src/config.json");
 
@@ -98,6 +85,8 @@ void parseQuerryAndCreateJSON(std::string querry)
 
     // Close the file
     MyFile.close();
+    std::cout << "created src/config.json:" << std::endl;
+    std::cout << finalJSON << std::endl;
     } catch(std::exception e) {
         std::cout << "The Querry was unable to get parsed. Nothing happened." << std::endl;
     }
@@ -257,7 +246,12 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path)
         return;
     }
 
-    if (strstr(path, "?"))
+    
+
+    //redirect to index.html in case of "GET /"
+    if (strcmp(path, "/") == 0)
+        actualPath = "src/index.html";
+    else if (strstr(path, "?"))
     {
         //has get-querry
         std::string querry = path;
@@ -267,13 +261,7 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path)
         parseQuerryAndCreateJSON(newQuerry);
         actualPath += "src";
         actualPath += querry.substr(0, querry.length()-newQuerry.length()-1);
-        std::cout << "acutalPath: " << actualPath << std::endl;
-    }
-
-    //redirect to index.html in case of "GET /"
-    if (strcmp(path, "/") == 0)
-        actualPath = "src/index.html";
-    else
+    } else
     {
         actualPath += "src";
         actualPath += path;
