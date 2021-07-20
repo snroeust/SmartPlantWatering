@@ -104,8 +104,9 @@ int SensorInterface::readSerial(){
       index++;
    }
 
-   try{
-      string tmpResult(result);   
+   string tmpResult(result);  
+   try{ 
+      
       this->soilHumidity = stof(tmpResult) /10;
 
    }
