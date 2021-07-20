@@ -6,7 +6,6 @@
 #include <cstdint>
 #include <chrono>
 #include <thread>
-#include <thread>         // std::thread
 #include <mutex>          // std::mutex
 #include <fstream>
 #include <sstream> //std::stringstream
@@ -28,8 +27,6 @@ SensorHandler::SensorHandler(){
 
 
     s1 = new SensorInterface();
-    this->SensorReaderWriter();  
-
 }
 
 SensorHandler::~SensorHandler(){
@@ -43,7 +40,7 @@ SensorHandler::~SensorHandler(){
 void SensorHandler::SensorReaderWriter(){
     
 
-    while(this->running){
+    /*while(this->running){
 
           
         
@@ -52,7 +49,7 @@ void SensorHandler::SensorReaderWriter(){
         //s1->writeJson();
 
        
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
         
 
         
@@ -64,8 +61,17 @@ void SensorHandler::SensorReaderWriter(){
         s1->setRelais(false);
          
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000)); 
+    }*/
+
+    wiringPiSetup () ;
+    pinMode (1, OUTPUT) ;
+    for (;;)
+    {
+        digitalWrite (1, HIGH) ; delay (500) ;
+        digitalWrite (1,  LOW) ; delay (500) ;
     }
+    return 0 ;
 
 }
 

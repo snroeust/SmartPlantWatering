@@ -20,7 +20,7 @@ SensorInterface::SensorInterface(){
    airTemperature= 0;
    airHumidity = 0;
    this->setDHTDate();
-   this->readSerial();
+   //this->readSerial();
 
 }
 
@@ -125,17 +125,20 @@ void SensorInterface::setRelais(bool on){
      
    #define PUMP     1
    wiringPiSetup () ;
-   pinMode (PUMP, OUTPUT) ;
+   pinMode (1, OUTPUT) ;
 
    if(on){
-      digitalWrite (PUMP, 1) ;     // On
+      digitalWrite (1, 1) ;     // On
 
    }
    else{
-      digitalWrite (PUMP, 0) ;     // Off
+      digitalWrite (1, 0) ;     // Off
    }
   
 }
+
+
+
 float SensorInterface::getSoilHumidity(){
    return this->soilHumidity;
 }
@@ -148,7 +151,7 @@ int SensorInterface::getAirHumidity(){
 
 void SensorInterface::updateValues(){
    this->setDHTDate();
-   this->readSerial();
+   //this->readSerial();
 }
 
 
