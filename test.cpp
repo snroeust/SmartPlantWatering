@@ -1,23 +1,6 @@
+
 #include <wiringPi.h>
-#include <iostream>
-#include <stdexcept>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <wiringPi.h>
-#include <wiringSerial.h>
-#include <sstream>
-#include <iostream>
-#include <cstdint>
-#include <cstring>
-#include <cstdint>
-#include <chrono>
-#include <fstream>
-#include <sstream> //std::stringstream
-#include<ctime>
-#include <thread>         
-#include <mutex>
-#include <string>
+
 
 
 int main (void)

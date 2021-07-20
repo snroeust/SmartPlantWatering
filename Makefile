@@ -12,10 +12,10 @@ SensorInterface.o: SensorInterface.cpp
 		g++ -c -lwiringPi SensorInterface.cpp -std=c++11
 
 SensorHandler.o: SensorHandler.cpp
-		g++ -c  -pthread SensorHandler.cpp -std=c++11
+		g++ -c -lwiringPi SensorHandler.cpp -std=c++11
 
 SensorHandlerMain.o: SensorHandlerMain.cpp
-		g++ -c  SensorHandlerMain.cpp -std=c++11
+		g++ -c -lwiringPi SensorHandlerMain.cpp -std=c++11
 
 	
 test: test.o 
