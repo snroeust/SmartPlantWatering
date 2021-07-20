@@ -95,8 +95,7 @@ int SensorInterface::readSerial()
    }
 
    
-   serialFlush(fd);
-   serialPrintf(fd, "A"); // send enter key to read data from sensor
+   serialPutchar(fd, 65);
    delay(1000);
 
    char result[4];

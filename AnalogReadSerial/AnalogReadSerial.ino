@@ -11,13 +11,16 @@ void loop() {
    if (Serial.available() > 0) {
     // read the incoming byte:
     byte incomingByte = Serial.read();
-    if(incomingByte == 65){
+
+    Serial.println(incomingByte);
+
+    /*if(incomingByte == 65){
       // read the input on analog pin 0:
       int sensorValue = analogRead(A0);
       // print out the value you read:
       Serial.println(sensorValue);
       Serial.flush()
       
-    }
+    }*/
   }
 }
