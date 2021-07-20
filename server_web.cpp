@@ -9,6 +9,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,12 +24,58 @@
 #define MAX_REQUEST_SIZE 2047   //for most browsers the maximum size for a http request
 
 
+void parseQuerryAndCreateJSON(std::string querry) {
+    std::string mode;
+    int interval;
+    int mode1duration;
+    float threshold;
+    int mode2duration;
 
+
+    std::size_t modePos = querry.find("mode=")+5;
+    std::size_t firstAmpersand = querry.find("&")+1;
+    std::string modeSubStr = querry.substr(modePos);
+    std::string choppedQuerry = querry.substr(firstAmpersand);
+    std::string finalMode = modeSubStr.substr(0, modeSubStr.length()-choppedQuerry.length()-1);
+    std::cout << modeSubStr << std::endl;
+    std::cout << choppedQuerry << std::endl;
+    std::cout << finalMode << std::endl;
+
+
+    std::size_t intervalPos = choppedQuerry.find("interval=")+9;
+    std::size_t secondAmpersand = choppedQuerry.find("&")+1;
+    std::string intervalSubStr = choppedQuerry.substr(intervalPos);
+    std::string secondChoppedQuerry = choppedQuerry.substr(secondAmpersand);
+    std::string finalInterval = intervalSubStr.substr(0, intervalSubStr.length()-secondChoppedQuerry.length()-1);
+    std::cout << intervalSubStr << std::endl;
+    std::cout << secondChoppedQuerry << std::endl;
+    std::cout << finalInterval << std::endl;
+
+    std::size_t mode1durationPos = secondChoppedQuerry.find("mode1duration=")+14;
+    std::size_t thirdAmpersand = secondChoppedQuerry.find("&")+1;
+    std::string mode1durationSubStr = secondChoppedQuerry.substr(mode1durationPos);
+    std::string thirdChoppedQuerry = secondChoppedQuerry.substr(thirdAmpersand);
+    std::string finalMode1duration = mode1durationSubStr.substr(0, mode1durationSubStr.length()-thirdChoppedQuerry.length()-1);
+    std::cout << mode1durationSubStr << std::endl;
+    std::cout << thirdChoppedQuerry << std::endl;
+    std::cout << finalMode1duration << std::endl;
+
+    std::size_t thresholdPos = secondChoppedQuerry.find("mode1duration=")+14;
+    std::size_t thirdAmpersand = secondChoppedQuerry.find("&")+1;
+    std::string mode1durationSubStr = secondChoppedQuerry.substr(mode1durationPos);
+    std::string thirdChoppedQuerry = secondChoppedQuerry.substr(thirdAmpersand);
+    std::string finalMode1duration = mode1durationSubStr.substr(0, mode1durationSubStr.length()-thirdChoppedQuerry.length()-1);
+    std::cout << mode1durationSubStr << std::endl;
+    std::cout << thirdChoppedQuerry << std::endl;
+    std::cout << finalMode1duration << std::endl;
+
+
+}
 
 /* Function to handle an error by printing a message and exiting */
-static void print_error_and_exit(char *errorMessage)
+static void print_error_and_exit(const char *errorMessage)
 {
-    fprintf(stderr, "%s: %s\n", errorMessage, strerror(errno));
+    std::cout << errorMessage << " " << strerror(errno) << std::endl;
     exit(1);
 }
 
@@ -138,9 +186,9 @@ void sendNotFound(struct clientInformation *client) {
 
 void sendHeaderAndFile(struct clientInformation *client, const char *path) {
     printf("sendHeaderAndFile %s %s\n", getAddressFromClient(client), path);
-    char* actualPath = calloc(256, sizeof(char));
+    std::string actualPath;
 
-    if (strlen(path) > 100) {
+    if (strlen(path) > 200) {
         sendBadRequest(client);
         return;
     }
@@ -149,17 +197,27 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path) {
         sendNotFound(client);
         return;
     }
+    
+    if(strstr(path, "?")) {
+        //has get-querry
+        std::string querry = path;
+        size_t questionMarkPos = querry.find("?");
+        std::string newQuerry = querry.substr(questionMarkPos+1);
+        std::cout << newQuerry << std::endl;
+        parseQuerryAndCreateJSON(newQuerry);
+    }
+    
 
     //redirect to index.html in case of "GET /"
     if (strcmp(path, "/") == 0)
         actualPath = "src/index.html";
     else {
-        strcat(actualPath, "src");
-        strcat(actualPath, path);
+        actualPath += "src";
+        actualPath += path;
     }
 
     //open the file with read priviliges and we deal with binary data, thats why we use the b flag
-    FILE *fp = fopen(actualPath, "rb");
+    FILE *fp = fopen(actualPath.c_str(), "rb");
 
     if (!fp) {
         sendNotFound(client);
@@ -168,13 +226,13 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path) {
 
     //get the file size using fstat determining the Content-Length
     struct stat fs;
-    int fd = open(actualPath, O_RDONLY);
+    int fd = open(actualPath.c_str(), O_RDONLY);
     if (fstat(fd, &fs) == -1) {
         print_error_and_exit("couldnt tell Content-Length");
     } 
     size_t contentLength = fs.st_size;
 
-    const char *ct = getContentTypeFromPath(actualPath);
+    const char *ct = getContentTypeFromPath(actualPath.c_str());
 
     char buffer[BUFLEN]; //2048 bytes
 
@@ -200,6 +258,8 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path) {
     client->received = 0;
     memset(&client->request[0], 0, sizeof(client->request));
 }
+
+
 
 
 int main(int argc, char *argv[])
@@ -238,6 +298,8 @@ int main(int argc, char *argv[])
     //While infinite loop to accept connections
     while (1)
     {
+
+
         fd_set reads;
         FD_ZERO(&reads);
         FD_SET(srv_fd, &reads);
@@ -329,7 +391,6 @@ int main(int argc, char *argv[])
             //work on the next client, which has data to read from
             client = next;
         }
-
     }
 
     //Close the server socket

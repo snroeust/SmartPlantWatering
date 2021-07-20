@@ -40,75 +40,81 @@
   </nav>
 
   <main class="container">
-    <div class="bg-light p-5 rounded">
-      <h1 class="mb-4">Settings</h1>
+    <form action="/settings.html" method="get">
+      <div class="bg-light p-5 rounded">
+        <h1 class="mb-4">Settings</h1>
 
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="mode" id="mode0">
-        <label class="form-check-label" for="mode1">
-          No automatic watering
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="mode" id="mode1">
-        <label class="form-check-label" for="mode2">
-          automatic watering based on time
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="mode" id="mode2">
-        <label class="form-check-label" for="mode3">
-          automatic waterting based on sensor values
-        </label>
-      </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="mode" id="mode0" value="mode0">
+          <label class="form-check-label" for="mode1">
+            No automatic watering
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="mode" id="mode1" value="mode1">
+          <label class="form-check-label" for="mode2">
+            automatic watering based on time
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="mode" id="mode2" value="mode2">
+          <label class="form-check-label" for="mode3">
+            automatic waterting based on sensor values
+          </label>
+        </div>
 
-      <hr>
-      <h5>automatic Watering based on time</h5>
-      <div class="row mb-2 ">
-        <label for="interval" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump every</label>
-        <div class="col-auto">
-          <div class="input-group input-group-sm">
-            <input type="number" class="form-control" placeholder="interval" aria-label="interval" aria-describedby="seconds-addon" id="interval">
-            <span class="input-group-text" id="seconds-addon">seconds</span>
+        <hr>
+        <h5>automatic Watering based on time</h5>
+        <div class="row mb-2 ">
+          <label for="interval" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump every</label>
+          <div class="col-auto">
+            <div class="input-group input-group-sm">
+              <input type="number" class="form-control" placeholder="interval" aria-label="interval"
+                aria-describedby="seconds-addon" id="interval" name="interval">
+              <span class="input-group-text" id="seconds-addon">seconds</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row mb-2 ">
-        <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
-        <div class="col-auto">
-          <div class="input-group input-group-sm">
-            <input type="number" class="form-control" placeholder="duration" aria-label="duration" aria-describedby="seconds-addon" id="mode1duration">
-            <span class="input-group-text" id="seconds-addon">seconds</span>
+        <div class="row mb-2 ">
+          <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
+          <div class="col-auto">
+            <div class="input-group input-group-sm">
+              <input type="number" class="form-control" placeholder="duration" aria-label="duration"
+                aria-describedby="seconds-addon" id="mode1duration" name="mode1duration">
+              <span class="input-group-text" id="seconds-addon">seconds</span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <hr>
-      <h5>automatic Watering based on sensor values</h5>
-      <div class="row mb-2 ">
-        <label for="threshold" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump if soil moisture below</label>
-        <div class="col-auto">
-          <div class="input-group input-group-sm">
-            <input type="number" class="form-control" placeholder="threshold" aria-label="threshold" aria-describedby="seconds-addon" step="0.1" id="threshold">
-            <span class="input-group-text" id="seconds-addon">%</span>
+
+        <hr>
+        <h5>automatic Watering based on sensor values</h5>
+        <div class="row mb-2 ">
+          <label for="threshold" class="col-sm-3 col-form-label col-form-label-sm">Activate the pump if soil moisture
+            below</label>
+          <div class="col-auto">
+            <div class="input-group input-group-sm">
+              <input type="number" class="form-control" placeholder="threshold" aria-label="threshold"
+                aria-describedby="seconds-addon" step="0.1" id="threshold" name="threshold">
+              <span class="input-group-text" id="seconds-addon">%</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row mb-4">
-        <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
-        <div class="col-auto">
-          <div class="input-group input-group-sm">
-            <input type="number" class="form-control" placeholder="duration" aria-label="duration" aria-describedby="seconds-addon" id="mode2duration">
-            <span class="input-group-text" id="seconds-addon">seconds</span>
+        <div class="row mb-4">
+          <label for="duration" class="col-sm-3 col-form-label col-form-label-sm">for</label>
+          <div class="col-auto">
+            <div class="input-group input-group-sm">
+              <input type="number" class="form-control" placeholder="duration" aria-label="duration"
+                aria-describedby="seconds-addon" id="mode2duration" name="mode2duration">
+              <span class="input-group-text" id="seconds-addon">seconds</span>
+            </div>
           </div>
         </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">Save Settings</button>
       </div>
-
-      <button type="button" class="btn btn-primary btn-lg">Save Settings</button>
-
-
+    </form>
   </main>
 
   <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -124,7 +130,7 @@
         console.log('error: ' + err);
       });
     function appendData(data) {
-      if(data.mode == 0) {
+      if (data.mode == 0) {
         document.getElementById("mode0").checked = true;
       } else if (data.mode == 1) {
         document.getElementById("mode1").checked = true;

@@ -1,7 +1,7 @@
 {
-    "mode": 1,
+    "mode": 2,
     "interval": 3600,
     "mode1duration": 15,
     "threshold": 32.5,
-    "mode2duration": 20
+    "mode2duration": 10
 }

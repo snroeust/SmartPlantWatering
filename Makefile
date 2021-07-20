@@ -1,8 +1,8 @@
 all: server_web.o
-	gcc server_web.o -o server_web
+	g++ server_web.o -o server_web
 
-server_web.o: server_web.c
-	gcc -c server_web.c
+server_web.o: server_web.cpp
+	g++ -c server_web.cpp
 
 
 SensorHandler: SensorHandlerMain.o SensorInterface.o SensorHandler.o
