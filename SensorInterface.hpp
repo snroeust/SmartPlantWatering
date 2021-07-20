@@ -41,5 +41,7 @@ class SensorInterface {
         int getAirTemperature();
         int getAirHumidity();
 
+        void writeJson();
+
 };
 #endif

@@ -146,3 +146,9 @@ void SensorInterface::updateValues(){
    this->setDHTDate();
    this->readSerial();
 }
+
+
+void SensorInterface::writeJson(){
+   this->executeShell("sudo rm ./src/data.json");
+   this->executeShell(" echo ""{\n\t ""soilMoisture"": " + this->soilHumidity +  ",\n\t""temperature"": " + this->airTemperature +  ",\n\t ""airHumidity"": " + this->airHumidity +  "\n}"" > ./src/data.json");
+}
