@@ -1,21 +1,18 @@
 #include <iostream>
 #include "SensorHandler.hpp"
-
+#include <wiringPi.h>
 
 
 
 
 int main (void)
 {
-  
-
-    std::cout << "SensorHandler Started" << std::endl;
-    
-    SensorHandler* s1 = new SensorHandler();
-   
-
-
-
-
-    return 0 ;
+  wiringPiSetup () ;
+  pinMode (1, OUTPUT) ;
+  for (;;)
+  {
+    digitalWrite (1, HIGH) ; delay (500) ;
+    digitalWrite (1,  LOW) ; delay (500) ;
+  }
+  return 0 ;
 }
