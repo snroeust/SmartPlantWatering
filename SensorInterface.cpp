@@ -144,7 +144,7 @@ void SensorInterface::setRelais(bool on){
         digitalWrite (1, HIGH) ; delay (500) ;
         digitalWrite (1,  LOW) ; delay (500) ;
     }
-    return 0 ;
+    
   
 }
 
