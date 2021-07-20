@@ -109,17 +109,17 @@ int SensorInterface::readSerial()
         memset(uartInput, 0, UART_INPUT_MAX_SIZE+1);
         // now receive data, till they are available
         // Or whole string is received
-        while (serialDataAvail(conexion) > -1 &&
+        while (serialDataAvail(fd) > -1 &&
                 uartInputIndex < UART_INPUT_MAX_SIZE) {
-            uartInput[uartInputIndex] = serialGetchar(conexion);
+            uartInput[uartInputIndex] = serialGetchar(fd);
             if (0 == uartInput[uartInputIndex]) break; //zero terminator received
             ++uartInputIndex;
         }
         if (0 == uartInputIndex) break; //No more strings received
 
-      std::cout << "Test"<< endl;
+      std::cout << "Test"<< std::endl;
         printf("%s\n", uartInput); // some string received
-      std::cout << "Test"<< endl;
+      std::cout << "Test"<< std::endl;
    }
 
    /*while (serialDataAvail(fd))
