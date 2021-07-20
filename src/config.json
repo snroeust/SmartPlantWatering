@@ -1,5 +1,7 @@
 {
-    "soilMoisture": 40,
-    "temperature": 22.5,
-    "airHumidity": 34.6
+    "mode": 1,
+    "interval": 123,
+    "mode1duration": 12,
+    "threshold": 12.500000,
+    "mode2duration": 2
 }
