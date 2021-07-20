@@ -14,7 +14,7 @@ using namespace std;
 
 
 SensorInterface::SensorInterface(){
-   soilHumidity = 500;
+   soilHumidity = 50;
    airTemperature= 0;
    airHumidity = 0;
    this->setDHTDate();
