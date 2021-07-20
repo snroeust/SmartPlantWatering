@@ -150,5 +150,7 @@ void SensorInterface::updateValues(){
 
 void SensorInterface::writeJson(){
    this->executeShell("sudo rm ./src/data.json");
-   this->executeShell(" echo ""{\n\t ""soilMoisture"": " + this->soilHumidity +  ",\n\t""temperature"": " + this->airTemperature +  ",\n\t ""airHumidity"": " + this->airHumidity +  "\n}"" > ./src/data.json");
+   string command = " echo ""{\n\t ""soilMoisture"": " + string(this->soilHumidity) +  ",\n\t""temperature"": " + string(this->airTemperature) +  ",\n\t ""airHumidity"": " + string(this->airHumidity) +  "\n}"" > ./src/data.json";
+   cout << command << endl;
+   this->executeShell(command);
 }
