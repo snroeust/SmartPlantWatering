@@ -20,7 +20,7 @@ class SensorHandler {
         // destructor
         ~SensorHandler();
 
-        bool SensorReader();
+        void SensorReader();
 
 
 

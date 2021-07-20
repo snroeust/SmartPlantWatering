@@ -5,7 +5,9 @@
 #include <cstdint>
 #include <cstring>
 #include <cstdint>
+
 #include <chrono>
+#include <thread>
 
 
 
@@ -16,9 +18,7 @@ SensorHandler::SensorHandler(){
     this->SensorReader();
 }
 
-SensorHandler::SensorHandler(){
-   
-}
+
 
 SensorHandler::~SensorHandler(){
     
@@ -27,7 +27,7 @@ SensorHandler::~SensorHandler(){
 
 
 
-bool SensorHandler::SensorReader(){
+void SensorHandler::SensorReader(){
 
     while(this->running){
         SensorInterface* s1 = new SensorInterface(); 
@@ -41,11 +41,6 @@ bool SensorHandler::SensorReader(){
         s1->setRelais(false);
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
     }
-
-    
-
-    
-
 
 }
 
