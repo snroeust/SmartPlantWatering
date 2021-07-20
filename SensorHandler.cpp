@@ -5,8 +5,6 @@
 #include <cstring>
 #include <cstdint>
 #include <chrono>
-#include <thread>
-#include <mutex>          // std::mutex
 #include <fstream>
 #include <sstream> //std::stringstream
 #include<ctime>
@@ -20,18 +18,11 @@ using namespace std;
 SensorHandler::SensorHandler(){
     
     this->running = true; 
-
-
-    this->configData = new ConfigData();
-    this->readConfig();
-
-
-    s1 = new SensorInterface();
+    this->SensorReaderWriter();
 }
 
 SensorHandler::~SensorHandler(){
-    delete this->configData;
-    delete this->s1;    
+
 }
 
 
@@ -39,11 +30,12 @@ SensorHandler::~SensorHandler(){
 
 void SensorHandler::SensorReaderWriter(){
 
-    s1->setRelais(true);
+   
     
 
-    /*while(this->running){
+    while(this->running){
 
+        SensorInterface* s1 = new SensorInterface(); 
           
         
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
@@ -64,7 +56,7 @@ void SensorHandler::SensorReaderWriter(){
          
 
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); 
-    }*/
+    }
 
 
 
