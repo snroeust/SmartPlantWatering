@@ -60,14 +60,6 @@ void parseQuerryAndCreateJSON(std::string querry) {
     std::cout << thirdChoppedQuerry << std::endl;
     std::cout << finalMode1duration << std::endl;
 
-    std::size_t thresholdPos = secondChoppedQuerry.find("mode1duration=")+14;
-    std::size_t thirdAmpersand = secondChoppedQuerry.find("&")+1;
-    std::string mode1durationSubStr = secondChoppedQuerry.substr(mode1durationPos);
-    std::string thirdChoppedQuerry = secondChoppedQuerry.substr(thirdAmpersand);
-    std::string finalMode1duration = mode1durationSubStr.substr(0, mode1durationSubStr.length()-thirdChoppedQuerry.length()-1);
-    std::cout << mode1durationSubStr << std::endl;
-    std::cout << thirdChoppedQuerry << std::endl;
-    std::cout << finalMode1duration << std::endl;
 
 
 }
