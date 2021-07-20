@@ -94,8 +94,7 @@ int SensorInterface::readSerial()
       return 1;
    }
 
-   
-   serialPutchar(fd, 65);
+   serialFlush(fd);
    delay(1000);
 
    char result[4];
