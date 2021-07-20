@@ -1,17 +1,13 @@
 #include "SensorHandler.hpp"
 #include "SensorInterface.hpp"
-
 #include <iostream>
 #include <cstdint>
 #include <cstring>
 #include <cstdint>
-
 #include <chrono>
 #include <thread>
 #include <thread>         // std::thread
-
 #include <mutex>          // std::mutex
-
 #include <fstream>
 #include <sstream> //std::stringstream
 
@@ -54,6 +50,8 @@ void SensorHandler::SensorReaderWriter(){
         this->s1 = new SensorInterface(); 
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
         s1->setRelais(true);
+        s1->writeJson();
+        
         mtxSensorInterface.unlock();   
         std::this_thread::sleep_for(std::chrono::milliseconds(5000)); //wait for 500 milliseconds
         
@@ -152,8 +150,4 @@ void SensorHandler::readConfig(){
 
 
 
-void SensorHandler::writeData(){
 
-
-    
-}
