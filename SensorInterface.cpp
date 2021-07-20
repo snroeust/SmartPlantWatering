@@ -127,10 +127,12 @@ void SensorInterface::setRelais(bool on){
      
     if(on){
       digitalWrite (PUMP, HIGH) ;     // On
+      cout << "!!!!!!!!!" << endl;
 
    }
    else{
       digitalWrite (PUMP, LOW) ;     // Off
+      cout << "?????????" << endl;
    }
   
 }
