@@ -29,31 +29,31 @@ SensorHandler::~SensorHandler()
     delete this->sensorInterface;
 }
 
-void SensorHandler::SensorReaderWriter()
+void sensorReaderWriter(SensorHandler *sensorHandler)
 {
     std::cout << "starting Thread SensorReaderWriter" << std::endl;
-    while (this->running)
+    while (sensorHandler->running)
     {
-        std::cout << sensorInterface->getSoilHumidity() << "  " << sensorInterface->getAirTemperature() << "  " << sensorInterface->getAirHumidity() << std::endl;
-        sensorInterface->setRelais(true);
+        std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
+        sensorHandler->sensorInterface->setRelais(true);
         //s1->writeJson();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
-        sensorInterface->updateValues();
+        sensorHandler->sensorInterface->updateValues();
         //s1->writeJson();
 
-        std::cout << sensorInterface->getSoilHumidity() << "  " << sensorInterface->getAirTemperature() << "  " << sensorInterface->getAirHumidity() << std::endl;
-        sensorInterface->setRelais(false);
+        std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
+        sensorHandler->sensorInterface->setRelais(false);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     }
 }
 
-void SensorHandler::WateringTimer()
+void wateringTimer(SensorHandler *sensorHandler)
 {
     std::cout << "starting Thread WateringTimer" << std::endl;
-    while (this->running)
+    while (sensorHandler->running)
     {
     }
 }
@@ -135,12 +135,12 @@ void SensorHandler::readConfig()
 
 int main(void)
 {
-    
+    SensorHandler *sensorHandler = new SensorHandler();
 
     std::thread t[2];
     //Launch the sender/receiver thread
-    t[0] = std::thread(SensorHandler::SensorReaderWriter);
-    t[1] = std::thread(SensorHandler::WateringTimer);
+    t[0] = std::thread(sensorReaderWriter, sensorHandler);
+    t[1] = std::thread(wateringTimer, sensorHandler);
 
     //Join the threads with the main thread
     t[0].join();
