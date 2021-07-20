@@ -102,6 +102,7 @@ int SensorInterface::readSerial(){
       char tmp = serialGetchar(fd);
       result[index] = tmp;
       index++;
+      cout << tmp << endl;
    }
 
    string tmpResult(result);  
