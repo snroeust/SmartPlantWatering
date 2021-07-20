@@ -1,5 +1,5 @@
-#include <iostream>
-#include "SensorHandler.hpp"
+//#include <iostream>
+//#include "SensorHandler.hpp"
 #include <wiringPi.h>
 
 
