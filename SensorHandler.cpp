@@ -86,7 +86,7 @@ void SensorHandler::StopThreads(){
 
 
 void SensorHandler::readConfig(){
-    int mode= 0;
+    /*int mode= 0;
     int interval = 0;
     int mode1duration =  0;
     float threshold=  0;
@@ -150,7 +150,7 @@ void SensorHandler::readConfig(){
         this->configData->mode1duration = this->configData->mode1duration;
         this->configData->threshold = this->configData->threshold;
         this->configData->mode2duration = this->configData->mode2duration;
-    }
+    }*/
 }
 
 
