@@ -12,6 +12,9 @@
 
 #include <mutex>          // std::mutex
 
+#include <fstream>
+#include <sstream> //std::stringstream
+
 
 
 
@@ -60,6 +63,9 @@ void SensorHandler::StopThreads(){
 }
 
 void SensorHandler::readConfig(){
+
+
+    
 
     
 }
