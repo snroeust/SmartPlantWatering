@@ -34,3 +34,5 @@
 SmartPlantWatering
 server_web
 SensorHandler
+src/config.json
+src/data.json
