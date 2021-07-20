@@ -85,7 +85,7 @@ int SensorInterface::readSerial()
    // Setup serial port on ODROID
    if ((fd = serialOpen("/dev/ttyACM0", 9600)) < 0)
    {
-      fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
+      std::cout << "Unable to open serial device: %s\n" std::endl;
       return 1;
    }
    if (wiringPiSetup() == -1)
