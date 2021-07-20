@@ -20,4 +20,5 @@
     - start the TCP-Webserver with:     ./server_web
     - start the SensorHandler with:     ./SensorHandler
 
-    - using any Webbrowser go to http://<RaspberryPi-IPAddress>:8080
+    - using any Webbrowser go to http://<RaspberryPi-IPAddress>     (f.E.: http://192.168.178.12)
+    - or using your RaspberryPi go to http://127.0.0.1
