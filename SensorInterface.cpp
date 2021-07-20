@@ -19,8 +19,7 @@ SensorInterface::SensorInterface(){
    airHumidity = 0;
    if (wiringPiSetup () == -1) {
         cout << "cant start wiring Pi" << endl;
-        return 1 ;
-    }
+   }
    
    
    this->setDHTDate();
