@@ -5,7 +5,7 @@
 #include <string.h>
 #include <errno.h>
 #include <wiringPi.h>
-#include <wiringSerial.h>
+//#include <wiringSerial.h>
 #include <sstream>
 
 
@@ -79,7 +79,7 @@ void SensorInterface::setDHTDate(){
 }
 
 
-int SensorInterface::readSerial(){
+/*int SensorInterface::readSerial(){
 
    int fd;
    // Setup serial port on ODROID
@@ -119,7 +119,7 @@ int SensorInterface::readSerial(){
 
    serialClose(fd); 
    return 0; 
-}
+}*/
 
 
 
@@ -156,7 +156,7 @@ void SensorInterface::updateValues(){
 }
 
 
-void SensorInterface::writeJson(){
+/*void SensorInterface::writeJson(){
    this->executeShell("sudo rm ./src/data.json");
    string command = " echo \'{\n\t\"soilMoisture\": ";
    command.append(to_string(this->soilHumidity));
@@ -166,4 +166,4 @@ void SensorInterface::writeJson(){
    command.append(to_string(this->airHumidity));
    command.append("\n}\' > ./src/data.json");
    this->executeShell(command);
-}
+}*/
