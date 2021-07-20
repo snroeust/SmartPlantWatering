@@ -104,8 +104,16 @@ int SensorInterface::readSerial(){
       index++;
    }
 
-   string tmpResult(result);   
-   this->soilHumidity = stoi(tmpResult);
+   try{
+      string tmpResult(result);   
+      this->soilHumidity = stof(tmpResult) /10;
+
+   }
+   catch (const std::exception& e) { 
+      cout << "EXCEPTION SERIAL" << endl;
+      cout << tmpResult << endl;
+   }
+
 
    serialClose(fd); 
    return 0; 
