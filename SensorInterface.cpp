@@ -156,7 +156,7 @@ void SensorInterface::writeJson(){
    command.append(to_string(this->airTemperature));
    command.append(",\n\t\"airHumidity\":");
    command.append(to_string(this->airHumidity));
-   command.append("\n}\' > test.txt");
+   command.append("\n}\' > ./src/data.json");
    cout << command << endl;
    this->executeShell(command);
 }

@@ -59,6 +59,8 @@ void SensorHandler::SensorReaderWriter(){
         mtxSensorInterface.lock();   
         s1->updateValues();
         s1->writeJson();
+
+        
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
         s1->setRelais(false);
         mtxSensorInterface.unlock();  
