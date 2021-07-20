@@ -17,7 +17,7 @@ SensorInterface::SensorInterface(){
    soilHumidity = 50;
    airTemperature= 0;
    airHumidity = 0;
-   wiringPiSetup ();
+   
    this->setDHTDate();
    this->readSerial();
 
@@ -85,7 +85,7 @@ int SensorInterface::readSerial(){
       fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
       return 1 ;
    }
-  
+   wiringPiSetup();
 
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
@@ -107,6 +107,7 @@ int SensorInterface::readSerial(){
      
    catch (const std::exception& e) { 
       cout << "Exception in Serial Communication. " << endl;
+      cout << tmpResult << endl;
       this->soilHumidity = this->soilHumidity;
    }
 
