@@ -17,6 +17,13 @@ SensorHandler.o: SensorHandler.cpp
 SensorHandlerMain.o: SensorHandlerMain.cpp
 		g++ -c -lwiringPi SensorHandlerMain.cpp -std=c++11
 
+	
+test: test.o 
+		g++ -ljsoncpp test.o -o test
+
+test.o: test.cpp
+		g++ -c -ljsoncpp test.cpp -std=c++11
+
 
 clean:
-	rm *.o server_web SensorHandler
+	rm *.o server_web SensorHandler test
