@@ -117,9 +117,9 @@ int SensorInterface::readSerial()
         }
         if (0 == uartInputIndex) break; //No more strings received
 
-      std::cout << "Test"<< std::endl;
+         std::cout << "Test"<< std::endl;
         printf("%s\n", uartInput); // some string received
-      std::cout << "Test"<< std::endl;
+         std::cout << "Test"<< std::endl;
    }
 
    /*while (serialDataAvail(fd))

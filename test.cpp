@@ -1,16 +1,10 @@
 
-#include <wiringPi.h>
+#include<iostream>
+#include<ctime>
 
-
-
-int main (void)
+int main()
 {
-  wiringPiSetup () ;
-  pinMode (1, OUTPUT) ;
-  for (;;)
-  {
-    digitalWrite (1, HIGH) ; delay (500) ;
-    digitalWrite (1,  LOW) ; delay (500) ;
-  }
-  return 0 ;
+    std::time_t t = 0;
+    std::cout << t << " seconds since 01-Jan-1970\n";
+    return 0;
 }
