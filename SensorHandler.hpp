@@ -12,7 +12,7 @@ class ConfigData{
         int mode1duration;
         float threshold;
         int mode2duration;
-}
+};
 
 class SensorHandler {    
 
