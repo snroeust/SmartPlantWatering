@@ -10,10 +10,10 @@ sensor_handler: sensor_interface.o sensor_handler.o
 	g++ -lwiringPi -pthread sensor_interface.o sensor_handler.o -o sensor_handler
 
 sensor_interface.o: sensor_interface.cpp
-	g++ -c sensor_interface.cpp -lwiringPi -std=c++11
+	g++ -std=c++11 -c sensor_interface.cpp -lwiringPi 
 
 sensor_handler.o: sensor_handler.cpp
-	g++ -c sensor_handler.cpp -lwiringPi -std=c++11
+	g++ -std=c++11 -c sensor_handler.cpp -lwiringPi
 
 clean:
 	rm *.o server_web sensor_handler test
