@@ -21,14 +21,14 @@ using namespace std;
 SensorHandler::SensorHandler(){
     this->running = true; 
 
-    mtxConfigData.lock();
+
     this->configData = new ConfigData();
-    mtxConfigData.unlock();
+
     this->readConfig();
 
-    mtxSensorInterface.lock();           // mutex for critical section
+
     s1 = new SensorInterface();
-    mtxSensorInterface.unlock();   
+   
 
     this->SensorReaderWriter();  
 
