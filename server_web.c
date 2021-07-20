@@ -138,7 +138,7 @@ void sendNotFound(struct clientInformation *client) {
 
 void sendHeaderAndFile(struct clientInformation *client, const char *path) {
     printf("sendHeaderAndFile %s %s\n", getAddressFromClient(client), path);
-    char* actualPath = malloc(256*sizeof(char));
+    char* actualPath = calloc(256, sizeof(char));
 
     if (strlen(path) > 100) {
         sendBadRequest(client);
