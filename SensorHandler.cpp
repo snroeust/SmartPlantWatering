@@ -43,11 +43,12 @@ SensorHandler::~SensorHandler(){
 
 
 void SensorHandler::SensorReaderWriter(){
+    this->s1 = new SensorInterface(); 
 
     while(this->running){
 
           
-        this->s1 = new SensorInterface(); 
+        
         cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
         s1->setRelais(true);
         //s1->writeJson();

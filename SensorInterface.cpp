@@ -94,8 +94,6 @@ int SensorInterface::readSerial(){
       return 1 ;
    }
 
-
-
    serialPrintf(fd,"A"); // send enter key to read data from sensor
    delay(1000);
 
@@ -127,9 +125,7 @@ int SensorInterface::readSerial(){
 
 void SensorInterface::setRelais(bool on){
      
- 
-
-   if(on){
+    if(on){
       digitalWrite (PUMP, HIGH) ;     // On
 
    }
