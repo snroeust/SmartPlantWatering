@@ -43,7 +43,7 @@ SensorHandler::~SensorHandler(){
 
 
 void SensorHandler::SensorReaderWriter(){
-    this->s1 = new SensorInterface(); 
+    
 
     while(this->running){
 
