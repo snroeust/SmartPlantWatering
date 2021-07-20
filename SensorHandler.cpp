@@ -13,7 +13,7 @@
 
 
 
-using namespace std;
+
 
 SensorHandler::SensorHandler(){
     
@@ -38,7 +38,7 @@ void SensorHandler::SensorReaderWriter(){
         SensorInterface* s1 = new SensorInterface(); 
           
         
-        cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
+        std::cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << std::endl;
         s1->setRelais(true);
         //s1->writeJson();
 
@@ -51,7 +51,7 @@ void SensorHandler::SensorReaderWriter(){
         //s1->writeJson();
 
 
-        cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << endl;
+        std::cout<< s1->getSoilHumidity() << "  " << s1->getAirTemperature() << "  " << s1->getAirHumidity() << std::endl;
         s1->setRelais(false);
          
 
