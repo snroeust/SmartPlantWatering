@@ -19,10 +19,10 @@ SensorHandlerMain.o: SensorHandlerMain.cpp
 
 	
 test: test.o 
-		g++ -ljsoncpp test.o -o test
+		g++ -lwiringPi test.o -o test
 
 test.o: test.cpp
-		g++ -c -ljsoncpp test.cpp -std=c++11
+		g++ -c -lwiringPi test.cpp -std=c++11
 
 
 clean:
