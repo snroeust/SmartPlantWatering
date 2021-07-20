@@ -27,7 +27,7 @@ class SensorInterface {
 
         void updateValues();
 
-        int getSoilHumidity();
+        float getSoilHumidity();
         int getAirTemperature();
         int getAirHumidity();
 
