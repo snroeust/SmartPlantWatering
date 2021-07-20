@@ -1,5 +1,11 @@
 # SmartPlantWatering
 
+---used Hardware for this project---
+    - Raspberry Pi 4b (2GB RAM)
+    - Arduino Uno Rev3 to read the analog sensor
+    - digital DHT11 Sensor (temperature & humidity)
+    - analog MAKERFACTORY MF-4838244 Sensor (soil moisture)    
+
 ---Required packes---
     - gcc version 9.3.0
     - g++ 9.3.0
@@ -17,7 +23,7 @@
     - make all
 
 ---How to run---
-    - start the TCP-Webserver with:     ./server_web
+    - start the TCP-Webserver with:     sudo ./server_web       (sudo because the server is running on port 80)
     - start the SensorHandler with:     ./SensorHandler
 
     - using any Webbrowser go to http://<RaspberryPi-IPAddress>     (f.E.: http://192.168.178.12)
