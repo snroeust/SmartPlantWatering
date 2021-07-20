@@ -19,15 +19,17 @@ class SensorInterface {
         SensorInterface();
         ~SensorInterface();
 
-  
         std::string executeShell(std::string command);
 
         void setDHTDate();
         int readSerial();
         void setRelais(bool);
 
-        
+        void updateValues();
 
+        int getSoilHumidity();
+        int getAirTemperature();
+        int getAirHumidity();
 
 };
 #endif

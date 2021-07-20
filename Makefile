@@ -5,11 +5,14 @@ server_web.o: server_web.c
 	gcc -c server_web.c
 
 
-SensorHandler: SensorHandlerMain.o SensorInterface.o 
-		g++ -lwiringPi SensorHandlerMain.o SensorInterface.o -o SensorHandler
+SensorHandler: SensorHandlerMain.o SensorInterface.o SensorHandler.o
+		g++ -lwiringPi SensorHandlerMain.o SensorInterface.o SensorHandler.o -o SensorHandler
 
 SensorInterface.o: SensorInterface.cpp
 		g++ -c -lwiringPi SensorInterface.cpp -std=c++11
+
+SensorHandler.o: SensorHandler.cpp
+		g++ -c -lwiringPi SensorHandler.cpp -std=c++11
 
 SensorHandlerMain.o: SensorHandlerMain.cpp
 		g++ -c -lwiringPi SensorHandlerMain.cpp -std=c++11

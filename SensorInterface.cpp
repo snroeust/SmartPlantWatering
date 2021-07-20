@@ -13,7 +13,6 @@
 using namespace std;
 
 
-
 SensorInterface::SensorInterface(){
    soilHumidity = 0;
    airTemperature= 0;
@@ -23,12 +22,9 @@ SensorInterface::SensorInterface(){
 
 }
 
-
 SensorInterface::~SensorInterface(){
   
 }
-
-
 
 string SensorInterface::executeShell(string command){
 
@@ -76,12 +72,7 @@ void SensorInterface::setDHTDate(){
          this->airTemperature = this->airTemperature;
          this->airHumidity =  this->airHumidity;
       }
-      cout << "EXCEPTION!" << endl;
    }
-
-
-
-   
 }
 
 
@@ -109,8 +100,9 @@ int SensorInterface::readSerial(){
       result[index] = tmp;
       index++;
    }
-   string tmpResult(result);
-   cout << stoi(tmpResult) << endl;
+
+   string tmpResult(result);   
+   this->soilHumidity = stoi(tmpResult);
 
    serialClose(fd); 
    return 0; 
@@ -131,4 +123,18 @@ void SensorInterface::setRelais(bool on){
       digitalWrite (PUMP, 0) ;     // Off
    }
   
+}
+int SensorInterface::getSoilHumidity(){
+   return this->soilHumidity;
+}
+int SensorInterface::getAirTemperature(){
+   return this->airTemperature;
+}
+int SensorInterface::getAirHumidity(){
+   return this->airHumidity;
+}
+
+void SensorInterface::updateValues(){
+   this->setDHTDate();
+   this->readSerial();
 }

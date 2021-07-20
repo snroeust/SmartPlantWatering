@@ -1,5 +1,6 @@
 #include <iostream>
-#include "SensorInterface.hpp"
+#include "SensorHandler.hpp"
+
 
 
 
@@ -9,8 +10,9 @@ int main (void)
   
 
     std::cout << "SensorHandler Started" << std::endl;
+    
+    SensorHandler* s1 = new SensorHandler();
 
-    SensorInterface* s1 = new SensorInterface(); 
 
     return 0 ;
 }

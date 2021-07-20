@@ -8,6 +8,7 @@
 class SensorHandler {    
 
     private:
+        bool running;
 
 
     public:
