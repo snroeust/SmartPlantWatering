@@ -24,7 +24,7 @@ SensorInterface::~SensorInterface()
 {
 }
 
-string SensorInterface::executeShell(std::string command)
+std::string SensorInterface::executeShell(std::string command)
 {
 
    char buffer[128];
@@ -163,11 +163,11 @@ void SensorInterface::writeJson()
 {
    this->executeShell("sudo rm ./src/data.json");
    std::string command = " echo \'{\n\t\"soilMoisture\": ";
-   command.append(to_string(this->soilHumidity));
+   command.append(std::to_string(this->soilHumidity));
    command.append(",\n\t\"temperature\":");
-   command.append(to_string(this->airTemperature));
+   command.append(std::to_string(this->airTemperature));
    command.append(",\n\t\"airHumidity\":");
-   command.append(to_string(this->airHumidity));
+   command.append(std::to_string(this->airHumidity));
    command.append("\n}\' > ./src/data.json");
    this->executeShell(command);
 }
