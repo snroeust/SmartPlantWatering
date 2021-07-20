@@ -9,7 +9,7 @@ class SensorInterface {
 
     private:
 
-        int soilHumidity;
+        float soilHumidity;
         int airTemperature;
         int airHumidity;
         
@@ -27,7 +27,7 @@ class SensorInterface {
 
         void updateValues();
 
-        int getSoilHumidity();
+        float getSoilHumidity();
         int getAirTemperature();
         int getAirHumidity();
 

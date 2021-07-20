@@ -14,7 +14,7 @@ using namespace std;
 
 
 SensorInterface::SensorInterface(){
-   soilHumidity = 0;
+   soilHumidity = 50;
    airTemperature= 0;
    airHumidity = 0;
    this->setDHTDate();
@@ -102,7 +102,15 @@ int SensorInterface::readSerial(){
    }
 
    string tmpResult(result);   
-   this->soilHumidity = stoi(tmpResult);
+   
+   try{
+      this->soilHumidity = (float)stoi(tmpResult) /10;
+   }
+     
+   catch (const std::exception& e) { 
+      cout << "Exception in Serial Communication. " << endl;
+      this->soilHumidity = this->soilHumidity;
+   }
 
    serialClose(fd); 
    return 0; 
@@ -124,7 +132,7 @@ void SensorInterface::setRelais(bool on){
    }
   
 }
-int SensorInterface::getSoilHumidity(){
+float SensorInterface::getSoilHumidity(){
    return this->soilHumidity;
 }
 int SensorInterface::getAirTemperature(){

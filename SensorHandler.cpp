@@ -15,7 +15,7 @@ using namespace std;
 
 SensorHandler::SensorHandler(){
     this->running = true; 
-    this->SensorReader();
+    this->SensorReaderWriter();
 }
 
 
@@ -27,7 +27,7 @@ SensorHandler::~SensorHandler(){
 
 
 
-void SensorHandler::SensorReader(){
+void SensorHandler::SensorReaderWriter(){
 
     while(this->running){
         SensorInterface* s1 = new SensorInterface(); 
