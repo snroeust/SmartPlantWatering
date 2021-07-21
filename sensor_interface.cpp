@@ -15,11 +15,7 @@
 
 SensorInterface::SensorInterface()
 {
-   soilHumidity = 0;
-   airTemperature = 0;
-   airHumidity = 0;
-   this->setDHTDate();
-   this->readSerial();
+   
 }
 
 SensorInterface::~SensorInterface()
@@ -50,81 +46,8 @@ std::string SensorInterface::executeShell(std::string command)
    return result;
 }
 
-void SensorInterface::setDHTDate()
-{
-   std::string ls = this->executeShell("python3 SensorDHTData.py");
 
-   int temperature = 20;
-   int hummidity = 50;
 
-   try
-   {
-      temperature = std::stoi(ls.substr(ls.find("Temperature:") + 12, ls.find("C") - (ls.find("Temperature:") + 12)));
-      hummidity = std::stoi(ls.substr(ls.find("Humidity:") + 9, ls.find("%") - (ls.find("Humidity:") + 9)));
-
-      this->airTemperature = temperature;
-      this->airHumidity = hummidity;
-   }
-   catch (const std::exception &e)
-   {
-      if (this->airTemperature == 0 && this->airHumidity == 0)
-      {
-         this->airTemperature = temperature;
-         this->airHumidity = hummidity;
-      }
-      else
-      {
-         this->airTemperature = this->airTemperature;
-         this->airHumidity = this->airHumidity;
-      }
-   }
-}
-
-int SensorInterface::readSerial()
-{
-
-   int fd;
-   // Setup serial port on ODROID
-   if ((fd = serialOpen("/dev/ttyACM0", 9600)) < 0)
-   {
-      std::cout << "Unable to open serial device: %s\n" << std::endl;
-      return 1;
-   }
-   if (wiringPiSetup() == -1)
-   {
-      fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
-      return 1;
-   }
-
-   serialFlush(fd);
-   delay(1000);
-
-   char result[4];
-   int index = 0;
-
-   while (serialDataAvail(fd))
-   {
-      char tmp = serialGetchar(fd);
-      result[index] = tmp;
-      index++;
-      std::cout << tmp << std::endl;
-   }
-
-   std::string tmpResult(result);
-   try
-   {
-
-      this->soilHumidity = stof(tmpResult) / 10;
-   }
-   catch (const std::exception &e)
-   {
-      std::cout << "EXCEPTION SERIAL" << std::endl;
-      std::cout << tmpResult << std::endl;
-   }
-
-   serialClose(fd);
-   return 0;
-}
 
 void SensorInterface::setRelais(bool on)
 {
@@ -142,50 +65,9 @@ void SensorInterface::setRelais(bool on)
       delay (500);
    }
 }
-float SensorInterface::getSoilHumidity()
-{
-   return this->soilHumidity;
-}
-int SensorInterface::getAirTemperature()
-{
-   return this->airTemperature;
-}
-int SensorInterface::getAirHumidity()
-{
-   return this->airHumidity;
-}
-
-void SensorInterface::updateValues()
-{
-   this->setDHTDate();
-   this->readSerial();
-}
 
 
 
-void SensorInterface::writeJson(){
 
-   std::string finalJSON = "{\n\t\"soilMoisture\": ";
-   finalJSON += std::to_string(this->soilHumidity);
-   finalJSON += ",\n\t\"temperature\": ";
-   finalJSON += std::to_string(this->airTemperature);
-   finalJSON += ",\n\t\"airHumidity\": ";
-   finalJSON += std::to_string(this->airHumidity);
-   finalJSON += "\n}";
 
-   //std::cout << finalJSON << std::endl;
-
-   //delete json and create new one
-   std::remove("src/data.json");
-   std::cout << "removed src/data.json" << std::endl;
-
-   std::ofstream MyFile("src/data.json");
-
-   // Write to the file
-   MyFile << finalJSON;
-
-   // Close the file
-   MyFile.close();
-   
-}
 

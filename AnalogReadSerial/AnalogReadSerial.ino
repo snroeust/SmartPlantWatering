@@ -12,6 +12,5 @@ void loop() {
     // print out the value you read:
     Serial.println(sensorValue);
     Serial.flush();
-    delay(1000);
-    
+    delay(5000); 
 }

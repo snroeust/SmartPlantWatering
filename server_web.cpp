@@ -19,10 +19,35 @@
 #include <iostream>
 #include <fstream>
 
-#define PORT 8080
+#define PORT 80
 #define BUFLEN 2048
 
 #define MAX_REQUEST_SIZE 2047 //for most browsers the maximum size for a http request
+
+
+std::string executeShell(std::string command)
+{
+   char buffer[128];
+   std::string result = "";
+
+   // Open pipe to file
+   FILE *pipe = popen(command.c_str(), "r");
+   if (!pipe)
+   {
+      return "popen failed!";
+   }
+   // read till end of process:
+   while (!feof(pipe))
+   {
+      // use buffer to read and add to result
+      if (fgets(buffer, 128, pipe) != NULL)
+         result += buffer;
+   }
+   pclose(pipe);
+   return result;
+}
+
+
 
 void parseQuerryAndCreateJSON(std::string querry)
 {
@@ -315,6 +340,7 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path)
 
 int main(int argc, char *argv[])
 {
+    executeShell("sudo python3 Json_API.py");
     struct sockaddr_in srv_addr;
 
     int srv_fd;

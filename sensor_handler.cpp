@@ -11,7 +11,7 @@
 #include <fstream>
 #include <sstream> //std::stringstream
 #include <ctime>
-#include <thread>
+
 
 SensorHandler::SensorHandler()
 {
@@ -27,26 +27,7 @@ SensorHandler::~SensorHandler()
     delete this->sensorInterface;
 }
 
-void sensorReaderWriter(SensorHandler *sensorHandler)
-{
-    std::cout << "starting Thread SensorReaderWriter" << std::endl;
-    while (sensorHandler->running)
-    {
-        //get hummidity Value
-        sensorHandler->mtxSensorInterface.lock();
-        //get values and update json
-        sensorHandler->sensorInterface->updateValues();
-        sensorHandler->sensorInterface->writeJson();
 
-        sensorHandler->readConfig();
-        std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
-        
-        sensorHandler->mtxSensorInterface.unlock();
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
-    }
-}
 
 void wateringTimer(SensorHandler *sensorHandler)
 {
@@ -214,14 +195,6 @@ int main(void)
 {
     SensorHandler *sensorHandler = new SensorHandler();
 
-    std::thread t[2];
-    //Launch the sender/receiver thread
-    t[0] = std::thread(sensorReaderWriter, sensorHandler);
-    t[1] = std::thread(wateringTimer, sensorHandler);
-
-    //Join the threads with the main thread
-    t[0].join();
-    t[1].join();
-
+    wateringTimer(sensorHandler);
     return 0;
 }

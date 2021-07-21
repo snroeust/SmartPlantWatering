@@ -39,7 +39,7 @@ while 1:
     try:
         
         if ser.in_waiting > 0:
-            soilMoisture = int(ser.readline().decode('utf-8'))
+            soilMoisture = float(ser.readline().decode('utf-8'))/10
         else:
             soilMoisture = dataJson["soilMoisture"]
 
@@ -51,19 +51,17 @@ while 1:
             "airHumidity": result.humidity
         }
         
-            
     except:
         print("Serial communication Exception")
 
     #write json
     try:
-        with open('src/data.json', 'w') as outfile:
-            json.dump(dataJson, outfile)
-        
-        print("Write Json success " + str(dataJson))
+        if dataJson["soilMoisture"] != 0 and dataJson["temperature"] != 0 and dataJson["airHumidity"] != 0: 
+            with open('src/data.json', 'w') as outfile:
+                json.dump(dataJson, outfile)
+            print("Write Json success " + str(dataJson))
+                
     except:
         print("Write Json Exception")
     
-    
-
-    time.sleep(10)
+    time.sleep(5)

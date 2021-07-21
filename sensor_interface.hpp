@@ -9,8 +9,7 @@ class ConfigData{
         int interval;
         int mode1duration;
         float threshold;
-        int mode2duration;
-               
+        int mode2duration;           
 };
 
 
@@ -30,17 +29,8 @@ class SensorInterface {
 
         std::string executeShell(std::string command);
 
-        void setDHTDate();
-        int readSerial();
         void setRelais(bool);
 
-        void updateValues();
-
-        float getSoilHumidity();
-        int getAirTemperature();
-        int getAirHumidity();
-
-        void writeJson();
 
 };
 #endif
