@@ -30,6 +30,7 @@ class SensorInterface {
         std::string executeShell(std::string command);
 
         void setRelais(bool);
+        void readData();
 
 
 };
