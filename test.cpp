@@ -1,57 +1,38 @@
-
+// basic file operations
 #include <iostream>
-#include <stdexcept>
-#include <stdio.h>
-#include <stdio.h>
-#include <string.h>
+#include <fstream>
 #include <string>
-#include <errno.h>
+
+using namespace std;
 
 
 
-std::string executeShell(std::string command)
+
+
+int writeFile () 
 {
 
-   char buffer[128];
-   std::string result = "";
+  float x = 0;
+  int y = 0;
+  int z = 0;
 
-   // Open pipe to file
-   FILE *pipe = popen(command.c_str(), "r");
-   if (!pipe)
-   {
-      return "popen failed!";
-   }
-   // read till end of process:
-   while (!feof(pipe))
-   {
+  
 
-      // use buffer to read and add to result
-      if (fgets(buffer, 128, pipe) != NULL)
-         result += buffer;
-   }
-   pclose(pipe);
-   return result;
+  ofstream DataFile;
+  DataFile.open ("./src/data.json");
+  DataFile << "{\n";
+  DataFile << "\t\"soilMoisture\": ";
+  DataFile << to_string(x);
+  DataFile << ",\n\t\"temperature\": ";
+  DataFile << to_string(y);
+  DataFile << ",\n\t\"airHumidity\": ";
+  DataFile << to_string(y);
+  DataFile << "\n}";
+  DataFile.close();
+  return 0;
 }
-
-
-void writeJson()
-{
-   //this->executeShell("rm ./src/data.json");
-   std::string command = " echo \'{\n\t\"soilMoisture\": ";
-   command.append(std::to_string(1));
-   command.append(",\n\t\"temperature\":");
-   command.append(std::to_string(1));
-   command.append(",\n\t\"airHumidity\":");
-   command.append(std::to_string(1));
-   command.append("\n}\' > ./src/data.json");
-   executeShell(command);
-}
-
-
 
 int main()
 {
-   writeJson();
-    
-    return 0;
+    writeFile();
 }
