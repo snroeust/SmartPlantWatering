@@ -39,11 +39,14 @@ while 1:
     try:
         soilMoisture = ser.readline().decode('utf-8')
         result = instance.read()
-        dataJson{'soilMoisture'} = soilMoisture
-        dataJson{'temperature'} = result.temperature
-        dataJson{'airHumidity'} = result.humidity
 
+        dataJson = {
+            'soilMoisture': soilMoisture,
+            'temperature': result.temperature,
+            'airHumidity': result.humidity
+        }
         
+            
     except:
         print("Serial communication Exception")
 
@@ -53,6 +56,7 @@ while 1:
             json.dump(dataJson, outfile)
     except:
         print("Write Json Exception")
+    
     
 
     time.sleep(10)
