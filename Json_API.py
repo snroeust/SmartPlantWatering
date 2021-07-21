@@ -67,4 +67,4 @@ while 1:
     except:
         print("Write Json Exception")
     
-    time.sleep(5)
+    time.sleep(10)
