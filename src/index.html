@@ -62,7 +62,7 @@
     setInterval(function(){
 
         
-        fetch('data.json', {keepalive: false})
+        fetch('data.json', {keepalive: true})
         .then(function (response) {
           
           return response.json();
