@@ -182,9 +182,7 @@ void SensorHandler::readConfig()
         strStream << inFile.rdbuf();       //read the file
         std::string str = strStream.str(); //str holds the content of the file
 
-        std::cout << str << "\n"
-                  << std::endl;
-        ; //you can do anything with the string!!!
+        
 
         size_t End = str.find("}");
         size_t modePos = str.find("mode") + 6;
@@ -212,7 +210,7 @@ void SensorHandler::readConfig()
         mode2duration = stoi(rest.substr(duration2Pos, duration2EndPos - duration2Pos));
         rest = rest.substr(duration2EndPos + 1, End - (duration2EndPos + 1));
 
-        std::cout << " -->  Readed Config : " << mode << " " << interval << " " << mode1duration << " " << threshold << " " << mode2duration << " " << std::endl;
+        //std::cout << " -->  Readed Config : " << mode << " " << interval << " " << mode1duration << " " << threshold << " " << mode2duration << " " << std::endl;
 
         mtxConfigData.lock();
         this->configData->mode = mode;

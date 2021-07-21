@@ -164,6 +164,8 @@ void SensorInterface::updateValues()
 
 void SensorInterface::writeJson(){
 
+   std::cout << "Write JSON" << std::endl;
+
    std::ofstream DataFile;
    DataFile.open ("./src/data.json");
    DataFile << "{\n";
