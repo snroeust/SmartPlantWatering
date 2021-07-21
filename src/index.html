@@ -59,21 +59,22 @@
   <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script>
 
-    setInterval(function(){
 
-        console.log("Test")
-        fetch('data.json')
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          appendData(data);
-        })
-        .catch(function (err) {
-          console.log('error: ' + err);
-        });
 
-    }, 5000);
+        
+    fetch('data.json')
+    .then(function (response) {
+
+      return response.json();
+    })
+    .then(function (data) {
+      appendData(data);
+    })
+    .catch(function (err) {
+      console.log('error: ' + err);
+    });
+
+
 
     function appendData(data) {
       var mainContainer = document.getElementById("soilMoistureCol");
