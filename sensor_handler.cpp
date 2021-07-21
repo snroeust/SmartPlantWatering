@@ -44,8 +44,8 @@ void wateringTimer(SensorHandler *sensorHandler)
     {
         std::time_t StartTime = std::time(0);  //seconds since 1970
 
-        this->readConfig();
-        this->readData();
+        sensorHandler->readConfig();
+        sensorHandler->readData();
 
         // read config 
         sensorHandler->mtxConfigData.lock();
