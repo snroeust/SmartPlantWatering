@@ -37,9 +37,8 @@ while 1:
    
     #Read Data
     try:
-        int(cleanData[i * 4:i * 4 + 4]
-
-        soilMoisture = ser.readline().decode('utf-8')[:2]
+        
+        soilMoisture = list(ser.readline().decode('utf-8'))[:2]
         result = instance.read()
 
         dataJson = {
