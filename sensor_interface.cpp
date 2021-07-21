@@ -8,6 +8,7 @@
 #include <wiringPi.h>
 #include <wiringSerial.h>
 #include <sstream>
+#include <fstream>
 
 #define PUMP 1
 
@@ -159,7 +160,26 @@ void SensorInterface::updateValues()
    this->readSerial();
 }
 
-void SensorInterface::writeJson()
+
+
+void SensorInterface::writeJson(){
+
+   ofstream DataFile;
+   DataFile.open ("./src/data.json");
+   DataFile << "{\n";
+   DataFile << "\t\"soilMoisture\": ";
+   DataFile << std::to_string(this->soilHumidity);
+   DataFile << ",\n\t\"temperature\": ";
+   DataFile << std::to_string(this->airTemperature);
+   DataFile << ",\n\t\"airHumidity\": ";
+   DataFile << std::to_string(this->airHumidity);
+   DataFile << "\n}";
+   DataFile.close();
+   
+}
+
+
+/*void SensorInterface::writeJson()
 {
    //this->executeShell("rm ./src/data.json");
    std::string command = " echo \'{\n\t\"soilMoisture\": ";
@@ -170,4 +190,4 @@ void SensorInterface::writeJson()
    command.append(std::to_string(this->airHumidity));
    command.append("\n}\' > ./src/data.json");
    this->executeShell(command);
-}
+}*/
