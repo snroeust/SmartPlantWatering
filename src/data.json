@@ -1,5 +1,5 @@
 {
-	"soilMoisture": 1,
-	"temperature":1,
-	"airHumidity":1
+	"soilMoisture": 0.000000,
+	"temperature": 0,
+	"airHumidity": 0
 }

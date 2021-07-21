@@ -164,19 +164,27 @@ void SensorInterface::updateValues()
 
 void SensorInterface::writeJson(){
 
-   std::cout << "Write JSON" << std::endl;
+   std::string finalJSON = "{\n\t\"soilMoisture\": ";
+   finalJSON += std::to_string(this->soilHumidity);
+   finalJSON += ",\n\t\"temperature\": ";
+   finalJSON += std::to_string(this->airTemperature);
+   finalJSON += ",\n\t\"airHumidity\": ";
+   finalJSON += std::to_string(this->airHumidity);
+   finalJSON += "\n}";
 
-   std::ofstream DataFile;
-   DataFile.open ("./src/data.json");
-   DataFile << "{\n";
-   DataFile << "\t\"soilMoisture\": ";
-   DataFile << std::to_string(this->soilHumidity);
-   DataFile << ",\n\t\"temperature\": ";
-   DataFile << std::to_string(this->airTemperature);
-   DataFile << ",\n\t\"airHumidity\": ";
-   DataFile << std::to_string(this->airHumidity);
-   DataFile << "\n}";
-   DataFile.close();
+   std::cout << finalJSON << std::endl;
+
+   //delete json and create new one
+   std::remove("src/data.json");
+   std::cout << "removed src/data.json" << std::endl;
+
+   std::ofstream MyFile("src/data.json");
+
+   // Write to the file
+   MyFile << finalJSON;
+
+   // Close the file
+   MyFile.close();
    
 }
 
