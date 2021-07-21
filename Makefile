@@ -16,4 +16,4 @@ sensor_handler.o: sensor_handler.cpp
 	g++  -c -lwiringPi sensor_handler.cpp -std=c++11
 
 clean:
-	rm *.o server_web sensor_handler test
+	rm *.o server_web sensor_handler
