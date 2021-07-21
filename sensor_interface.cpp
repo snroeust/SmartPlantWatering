@@ -164,7 +164,7 @@ void SensorInterface::updateValues()
 
 void SensorInterface::writeJson(){
 
-   ofstream DataFile;
+   std::ofstream DataFile;
    DataFile.open ("./src/data.json");
    DataFile << "{\n";
    DataFile << "\t\"soilMoisture\": ";
