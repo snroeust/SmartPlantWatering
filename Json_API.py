@@ -42,14 +42,33 @@ while 1:
             soilMoisture = float(ser.readline().decode('utf-8'))/10
         else:
             soilMoisture = dataJson["soilMoisture"]
+            
 
+        sM = soilMoisture
 
         result = instance.read()
-        dataJson = {
+
+        if soilMoisture is 0:
+            dataJson["soilMoisture"] = dataJson["soilMoisture"]
+        else:
+            dataJson["soilMoisture"] = soilMoisture
+
+        if result.temperature is 0:
+            dataJson["temperature"] = dataJson["temperature"]
+        else:
+            dataJson["temperature"] = result.temperature
+            
+        if result.humidity is 0:
+            dataJson["airHumidity"] = dataJson["airHumidity"]
+        else:
+            dataJson["airHumidity"] = result.humidity
+
+
+        """dataJson = {
             "soilMoisture": soilMoisture,
             "temperature": result.temperature,
             "airHumidity": result.humidity
-        }
+        }"""
         
     except:
         print("Serial communication Exception")
