@@ -11,7 +11,7 @@ except:
 ser.flush()
 
 while 1:
-    print(ser.readline())
+    print(ser.readline().decode('utf-8'))
     time.sleep(1)
 
 
