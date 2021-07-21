@@ -55,20 +55,18 @@ void wateringTimer(SensorHandler *sensorHandler)
 
         //get hummidity Value
         sensorHandler->mtxSensorInterface.lock();
-        float soilHumidity = sensorHandler->sensorInterface->getSoilHumidity();
+        float soilHumidity = 0//sensorHandler->sensorInterface->getSoilHumidity();
         sensorHandler->mtxSensorInterface.unlock();
 
         std::cout << "Config Data : " << mode << "  " << interval <<
              "  " << mode1duration <<"  " << threshold <<"  " <<
                      mode2duration <<"  " << std::endl;
 
-
         if(mode == 1){
             // Intervall Mode
             if(IntervallEnd == 0){
                 //Intervall neu als Option gesetzt
-                IntervallEnd = std::time(0)+interval;    
-                       
+                IntervallEnd = std::time(0)+interval;          
             }
             else{
                 if(std::time(0) >= IntervallEnd){
@@ -188,6 +186,36 @@ void SensorHandler::readConfig()
         this->configData->mode1duration = this->configData->mode1duration;
         this->configData->threshold = this->configData->threshold;
         this->configData->mode2duration = this->configData->mode2duration;
+    }
+}
+
+
+void SensorHandler::readData()
+{
+    int soilMoisture = 0;
+
+    try
+    {
+        std::ifstream inFile;
+        inFile.open("./src/data.json"); //open the input file
+
+        std::stringstream strStream;
+        strStream << inFile.rdbuf();       //read the file
+        std::string str = strStream.str(); //str holds the content of the file
+
+        size_t End = str.find("}");
+        size_t soilMoisturePos = str.find("soilMoisture") + 15;
+        size_t soilMoistureEndPos = str.find(",");
+        //soilMoisture = stof(str.substr(soilMoisturePos, soilMoistureEndPos - soilMoisturePos));
+        std::string rest = str.substr(soilMoisturePos, soilMoistureEndPos - soilMoisturePos);
+
+        std::cout << rest << "  ------------------------------" << std::endl;
+
+  
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "Exception in Read Data" << std::endl;
     }
 }
 
