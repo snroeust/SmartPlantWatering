@@ -37,7 +37,7 @@ while 1:
    
     #Read Data
     try:
-        soilMoisture = ser.readline().decode('utf-8'))
+        soilMoisture = ser.readline().decode('utf-8')
         result = instance.read()
         dataJson = {'soilMoisture'} = soilMoisture
         dataJson = {'temperature'} = result.temperature
