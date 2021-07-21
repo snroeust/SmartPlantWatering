@@ -34,6 +34,7 @@ dataJson = {
     }
 
 while 1:
+    correct = False
    
     #Read Data
     try:
@@ -53,16 +54,17 @@ while 1:
             "temperature": result.temperature,
             "airHumidity": result.humidity
         }
+        correct = True
         
     except:
         print("Serial communication Exception")
 
     #write json
     try:
-        
-        with open('src/data.json', 'w') as outfile:
-            json.dump(dataJson, outfile)
-        print("Write Json success " + str(dataJson))
+        if correct:
+            with open('src/data.json', 'w') as outfile:
+                json.dump(dataJson, outfile)
+            print("Write Json success " + str(dataJson))
                         
     except:
         print("Write Json Exception")
