@@ -28,9 +28,9 @@ ser.flush()
 
 
 dataJson = {
-    'soilMoisture': 0,
-    'temperature': 0,
-    'airHumidity': 0
+    "soilMoisture": 0,
+    "temperature": 0,
+    "airHumidity": 0
     }
 
 while 1:
@@ -38,13 +38,17 @@ while 1:
     #Read Data
     try:
         
-        soilMoisture = int(ser.readline().decode('utf-8'))
-        result = instance.read()
+        if ser.in_waiting > 0:
+            soilMoisture = int(ser.readline().decode('utf-8'))
+        else:
+            soilMoisture = dataJson{"soilMoisture"}
 
+
+        result = instance.read()
         dataJson = {
-            'soilMoisture': soilMoisture,
-            'temperature': result.temperature,
-            'airHumidity': result.humidity
+            "soilMoisture": soilMoisture,
+            "temperature": result.temperature,
+            "airHumidity": result.humidity
         }
         
             
