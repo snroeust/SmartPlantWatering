@@ -61,7 +61,7 @@ while 1:
                 json.dump(dataJson, outfile)
             print("Write Json success " + str(dataJson))
         
-        print("No data")
+        print("No data" + str(dataJson))
                 
     except:
         print("Write Json Exception")
