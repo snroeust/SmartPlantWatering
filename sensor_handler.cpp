@@ -129,7 +129,7 @@ void wateringTimer(SensorHandler *sensorHandler)
         }
 
         std::time_t EndTime = std::time(0);  //seconds since 1970
-        int toSleep = SleepTime-((EndTime - StartTime)*1000));
+        int toSleep = SleepTime-((EndTime - StartTime)*1000);
         if(toSleep > 0){
             std::this_thread::sleep_for(std::chrono::milliseconds(toSleep));
         }
