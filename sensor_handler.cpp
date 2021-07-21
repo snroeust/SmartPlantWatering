@@ -109,13 +109,15 @@ void wateringTimer(SensorHandler *sensorHandler)
             // Intervall Mode
             if(IntervallEnd = 0){
                 //Intervall neu als Option gesetzt
-                IntervallEnd = std::time(0)+interval;               
+                std::cout << "------------time now :: " << std::time(0) << std::endl;     
+                IntervallEnd = std::time(0)+interval;    
+                std::cout << "------------intervall end :: " << IntervallEnd << std::endl;           
             }
             else{
                 //intervall besteht gucken ob pflanze gegossen werden muss
                 if(std::time(0) >= IntervallEnd){
                     
-                    std::cout << "Water" << std::endl;
+                    std::cout << "Water Time now :" << std::time(0) << std::endl;
                     //Plant need water
                     EndWatering = std::time(0) +  mode1duration;
                     while(std::time(0)<EndWatering){
