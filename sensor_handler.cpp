@@ -34,7 +34,30 @@ void sensorReaderWriter(SensorHandler *sensorHandler)
     std::cout << "starting Thread SensorReaderWriter" << std::endl;
     while (sensorHandler->running)
     {
+
+        //get hummidity Value
+        sensorHandler->mtxSensorInterface.lock();
+        //get values and update json
+        sensorHandler->sensorInterface->updateValues();
+        sensorHandler->sensorInterface->writeJson();
+
+        sensorHandler->readConfig();
+
         std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
+        
+        std::cout << sensorHandler->configData->mode << "  " <<
+                     sensorHandler->configData->interval << "  " << 
+                     sensorHandler->configData->mode1duration << "  " << 
+                     sensorHandler->configData->threshold << "  " << 
+                     sensorHandler->configData->mode2duration << std::endl;
+
+        sensorHandler->mtxSensorInterface.unlock();
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+
+        /*std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
         sensorHandler->sensorInterface->setRelais(true);
         //s1->writeJson();
 
@@ -46,7 +69,7 @@ void sensorReaderWriter(SensorHandler *sensorHandler)
         std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
         sensorHandler->sensorInterface->setRelais(false);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(5000));*/
     }
 }
 

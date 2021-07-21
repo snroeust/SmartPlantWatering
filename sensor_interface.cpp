@@ -183,7 +183,7 @@ void SensorInterface::updateValues()
 
 void SensorInterface::writeJson()
 {
-   this->executeShell("sudo rm ./src/data.json");
+   this->executeShell("rm ./src/data.json");
    std::string command = " echo \'{\n\t\"soilMoisture\": ";
    command.append(std::to_string(this->soilHumidity));
    command.append(",\n\t\"temperature\":");
