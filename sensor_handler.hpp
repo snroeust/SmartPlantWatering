@@ -31,7 +31,7 @@ class SensorHandler {
         void StopThreads();
 
         void readConfig();
-        void readData();
+        float readData();
 
 
 

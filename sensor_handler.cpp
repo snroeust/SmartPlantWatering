@@ -39,13 +39,14 @@ void wateringTimer(SensorHandler *sensorHandler)
     sensorHandler->mtxSensorInterface.lock();
     sensorHandler->sensorInterface->setRelais(false);
     sensorHandler->mtxSensorInterface.unlock();
+    float OldsoilHumidity = 0;
 
     while (sensorHandler->running)
     {
         std::time_t StartTime = std::time(0);  //seconds since 1970
 
         sensorHandler->readConfig();
-        sensorHandler->readData();
+        
 
         // read config 
         sensorHandler->mtxConfigData.lock();
@@ -58,7 +59,13 @@ void wateringTimer(SensorHandler *sensorHandler)
 
         //get hummidity Value
         sensorHandler->mtxSensorInterface.lock();
-        float soilHumidity = 0;//sensorHandler->sensorInterface->getSoilHumidity();
+        float soilHumidity = sensorHandler->readData();//sensorHandler->sensorInterface->getSoilHumidity();
+        if(soilHumidity == -1){
+            soilHumidity = OldsoilHumidity;
+        }
+        else{
+            OldsoilHumidity = soilHumidity;
+        }
         sensorHandler->mtxSensorInterface.unlock();
 
         std::cout << "Config Data : " << mode << "  " << interval <<
@@ -193,7 +200,7 @@ void SensorHandler::readConfig()
 }
 
 
-void SensorHandler::readData()
+float SensorHandler::readData()
 {
     int soilMoisture = 0;
 
@@ -210,15 +217,13 @@ void SensorHandler::readData()
         size_t soilMoisturePos = str.find("soilMoisture") + 15;
         size_t soilMoistureEndPos = str.find(",");
         //soilMoisture = stof(str.substr(soilMoisturePos, soilMoistureEndPos - soilMoisturePos));
-        std::string rest = str.substr(soilMoisturePos, soilMoistureEndPos - soilMoisturePos);
+        return stof(str.substr(soilMoisturePos, soilMoistureEndPos - soilMoisturePos));
 
-        std::cout << rest << "  ------------------------------" << std::endl;
-
-  
     }
     catch (const std::exception &e)
     {
         std::cout << "Exception in Read Data" << std::endl;
+        return -1;
     }
 }
 
