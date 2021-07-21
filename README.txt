@@ -22,7 +22,9 @@
     - pip3 install dht11    (module for DHT11 temperature & humidity sensor)
 
 ---How to Compile---
-    - make all
+    - upload the file arduino_code/analogReadSerial.ino to the Arduino Rev3
+    - compile the program on the Raspberry Pi using:    make all
+
 
 ---How to run---
     - start the TCP-Webserver with:     sudo ./server_web           (sudo because the server is running on port 80)
