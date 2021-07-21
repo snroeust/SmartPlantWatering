@@ -48,27 +48,11 @@ while 1:
 
         result = instance.read()
 
-        if soilMoisture is 0:
-            dataJson["soilMoisture"] = dataJson["soilMoisture"]
-        else:
-            dataJson["soilMoisture"] = soilMoisture
-
-        if result.temperature is 0:
-            dataJson["temperature"] = dataJson["temperature"]
-        else:
-            dataJson["temperature"] = result.temperature
-            
-        if result.humidity is 0:
-            dataJson["airHumidity"] = dataJson["airHumidity"]
-        else:
-            dataJson["airHumidity"] = result.humidity
-
-
-        """dataJson = {
+        dataJson = {
             "soilMoisture": soilMoisture,
             "temperature": result.temperature,
             "airHumidity": result.humidity
-        }"""
+        }
         
     except:
         print("Serial communication Exception")
