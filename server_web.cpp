@@ -36,17 +36,9 @@ std::string executeShell(std::string command)
    {
       return "popen failed!";
    }
-   // read till end of process:
-   while (!feof(pipe))
-   {
-      // use buffer to read and add to result
-      if (fgets(buffer, 128, pipe) != NULL)
-         result += buffer;
-   }
-   pclose(pipe);
+   
    return result;
 }
-
 
 
 void parseQuerryAndCreateJSON(std::string querry)

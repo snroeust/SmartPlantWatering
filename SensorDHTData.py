@@ -1,5 +1,5 @@
 # this File prints the Data given from the DHT Sensor
-import RPi.GPIO as GPIO
+"""import RPi.GPIO as GPIO
 import dht11
 
 # initialize GPIO
@@ -15,6 +15,12 @@ if result.is_valid():
     print("Temperature: %d C" % result.temperature)
     print("Humidity: %d %%" % result.humidity)
 else:
-    print("Error: %d" % result.error_code)
+    print("Error: %d" % result.error_code)"""
+
+
+import time 
+while 1:
+    print("Test")
+    time.sleep(1)
 
 
