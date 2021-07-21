@@ -9,11 +9,13 @@
 #include <wiringSerial.h>
 #include <sstream>
 #include <fstream>
+#include <stdlib.h> 
 
 #define PUMP 1
 
 SensorInterface::SensorInterface()
 {
+   setenv("WIRINGPI_GPIOMEM", "1", 1);
    soilHumidity = 0;
    airTemperature = 0;
    airHumidity = 0;

@@ -45,11 +45,11 @@ void sensorReaderWriter(SensorHandler *sensorHandler)
 
         std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
         
-        std::cout << sensorHandler->configData->mode << "  " <<
+        /*std::cout << sensorHandler->configData->mode << "  " <<
                      sensorHandler->configData->interval << "  " << 
                      sensorHandler->configData->mode1duration << "  " << 
                      sensorHandler->configData->threshold << "  " << 
-                     sensorHandler->configData->mode2duration << std::endl;
+                     sensorHandler->configData->mode2duration << std::endl;*/
 
         sensorHandler->mtxSensorInterface.unlock();
 
@@ -80,6 +80,10 @@ void wateringTimer(SensorHandler *sensorHandler)
     std::time_t EndWatering = std::time(0);  
     std::time_t IntervallEnd = 0;
 
+    sensorHandler->mtxSensorInterface.lock();
+    sensorHandler->sensorInterface->setRelais(false);
+    sensorHandler->mtxSensorInterface.unlock();
+
     while (sensorHandler->running)
     {
         std::time_t StartTime = std::time(0);  //seconds since 1970
@@ -98,6 +102,8 @@ void wateringTimer(SensorHandler *sensorHandler)
         float soilHumidity = sensorHandler->sensorInterface->getSoilHumidity();
         sensorHandler->mtxSensorInterface.unlock();
 
+        std::cout << mode << "  " << interval << "  " << mode1duration << std::endl;
+
 
         if(mode == 1){
             // Intervall Mode
@@ -108,7 +114,8 @@ void wateringTimer(SensorHandler *sensorHandler)
             else{
                 //intervall besteht gucken ob pflanze gegossen werden muss
                 if(std::time(0) >= IntervallEnd){
-
+                    
+                    std::cout << "Water" << std::endl;
                     //Plant need water
                     EndWatering = std::time(0) +  mode1duration;
                     while(std::time(0)<EndWatering){
