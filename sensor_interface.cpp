@@ -15,7 +15,6 @@
 
 SensorInterface::SensorInterface()
 {
-
    soilHumidity = 0;
    airTemperature = 0;
    airHumidity = 0;
@@ -174,7 +173,7 @@ void SensorInterface::writeJson(){
    finalJSON += std::to_string(this->airHumidity);
    finalJSON += "\n}";
 
-   std::cout << finalJSON << std::endl;
+   //std::cout << finalJSON << std::endl;
 
    //delete json and create new one
    std::remove("src/data.json");
@@ -190,16 +189,3 @@ void SensorInterface::writeJson(){
    
 }
 
-
-/*void SensorInterface::writeJson()
-{
-   //this->executeShell("rm ./src/data.json");
-   std::string command = " echo \'{\n\t\"soilMoisture\": ";
-   command.append(std::to_string(this->soilHumidity));
-   command.append(",\n\t\"temperature\":");
-   command.append(std::to_string(this->airTemperature));
-   command.append(",\n\t\"airHumidity\":");
-   command.append(std::to_string(this->airHumidity));
-   command.append("\n}\' > ./src/data.json");
-   this->executeShell(command);
-}*/

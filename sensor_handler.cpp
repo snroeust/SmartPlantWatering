@@ -16,10 +16,8 @@
 SensorHandler::SensorHandler()
 {
     this->running = true;
-
     this->configData = new ConfigData();
     this->readConfig();
-
     sensorInterface = new SensorInterface();
 }
 
@@ -34,7 +32,6 @@ void sensorReaderWriter(SensorHandler *sensorHandler)
     std::cout << "starting Thread SensorReaderWriter" << std::endl;
     while (sensorHandler->running)
     {
-
         //get hummidity Value
         sensorHandler->mtxSensorInterface.lock();
         //get values and update json
@@ -42,34 +39,12 @@ void sensorReaderWriter(SensorHandler *sensorHandler)
         sensorHandler->sensorInterface->writeJson();
 
         sensorHandler->readConfig();
-
         std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
         
-        /*std::cout << sensorHandler->configData->mode << "  " <<
-                     sensorHandler->configData->interval << "  " << 
-                     sensorHandler->configData->mode1duration << "  " << 
-                     sensorHandler->configData->threshold << "  " << 
-                     sensorHandler->configData->mode2duration << std::endl;*/
-
         sensorHandler->mtxSensorInterface.unlock();
 
-
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
-
-        /*std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
-        sensorHandler->sensorInterface->setRelais(true);
-        //s1->writeJson();
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
-        sensorHandler->sensorInterface->updateValues();
-        //s1->writeJson();
-
-        std::cout << sensorHandler->sensorInterface->getSoilHumidity() << "  " << sensorHandler->sensorInterface->getAirTemperature() << "  " << sensorHandler->sensorInterface->getAirHumidity() << std::endl;
-        sensorHandler->sensorInterface->setRelais(false);
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(5000));*/
     }
 }
 
@@ -102,19 +77,19 @@ void wateringTimer(SensorHandler *sensorHandler)
         float soilHumidity = sensorHandler->sensorInterface->getSoilHumidity();
         sensorHandler->mtxSensorInterface.unlock();
 
-        std::cout << mode << "  " << interval << "  " << mode1duration << std::endl;
+        std::cout << "Config Data : " << mode << "  " << interval <<
+             "  " << mode1duration <<"  " << threshold <<"  " <<
+                     mode2duration <<"  " << std::endl;
 
 
         if(mode == 1){
             // Intervall Mode
             if(IntervallEnd == 0){
                 //Intervall neu als Option gesetzt
-                std::cout << "------------time now :: " << std::time(0) << std::endl;     
                 IntervallEnd = std::time(0)+interval;    
-                std::cout << "------------intervall end :: " << IntervallEnd << std::endl;           
+                       
             }
             else{
-                //intervall besteht gucken ob pflanze gegossen werden muss
                 if(std::time(0) >= IntervallEnd){
                     
                     std::cout << "Water Time now :" << std::time(0) << std::endl;
@@ -132,8 +107,6 @@ void wateringTimer(SensorHandler *sensorHandler)
                     sensorHandler->sensorInterface->setRelais(false);
                     sensorHandler->mtxSensorInterface.unlock();
 
-                    //intervall wird auf null gesetzt damit der Modi sich aendern kann 
-                    //ansonsten wir das intervall anhand der ersten If im naechen durchlaufgesetzt
                     IntervallEnd = 0;
                 }
             }
@@ -155,8 +128,6 @@ void wateringTimer(SensorHandler *sensorHandler)
                 sensorHandler->mtxSensorInterface.lock();
                 sensorHandler->sensorInterface->setRelais(false);
                 sensorHandler->mtxSensorInterface.unlock();
-
-
             }
         }
 
@@ -190,8 +161,6 @@ void SensorHandler::readConfig()
         std::stringstream strStream;
         strStream << inFile.rdbuf();       //read the file
         std::string str = strStream.str(); //str holds the content of the file
-
-        
 
         size_t End = str.find("}");
         size_t modePos = str.find("mode") + 6;
@@ -232,7 +201,7 @@ void SensorHandler::readConfig()
     catch (const std::exception &e)
     {
 
-        std::cout << "Exception in REad Config" << std::endl;
+        std::cout << "Exception in Read Config" << std::endl;
         this->configData->mode = this->configData->mode;
         this->configData->interval = this->configData->interval;
         this->configData->mode1duration = this->configData->mode1duration;
