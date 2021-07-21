@@ -59,10 +59,8 @@
   <script src="/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script>
 
-    setInterval(function(){
 
-        
-        fetch('data.json', {keepalive: true})
+    fetch('data.json', {keepalive: true})
         .then(function (response) {
           
           return response.json();
@@ -74,8 +72,8 @@
           console.log('error: ' + err);
         });
 
-    }, 5000);
-
+ 
+ 
     function appendData(data) {
       var mainContainer = document.getElementById("soilMoistureCol");
       mainContainer.innerHTML = data.soilMoisture;
