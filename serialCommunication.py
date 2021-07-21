@@ -38,7 +38,7 @@ while 1:
     #Read Data
     try:
         
-        soilMoisture = list(ser.readline().decode('utf-8'))[:-2]
+        soilMoisture = int(ser.readline().decode('utf-8'))
         result = instance.read()
 
         dataJson = {
