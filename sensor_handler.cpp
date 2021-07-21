@@ -107,7 +107,7 @@ void wateringTimer(SensorHandler *sensorHandler)
 
         if(mode == 1){
             // Intervall Mode
-            if(IntervallEnd = 0){
+            if(IntervallEnd == 0){
                 //Intervall neu als Option gesetzt
                 std::cout << "------------time now :: " << std::time(0) << std::endl;     
                 IntervallEnd = std::time(0)+interval;    
