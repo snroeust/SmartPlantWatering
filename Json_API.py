@@ -60,6 +60,8 @@ while 1:
             with open('src/data.json', 'w') as outfile:
                 json.dump(dataJson, outfile)
             print("Write Json success " + str(dataJson))
+        
+        print("No data")
                 
     except:
         print("Write Json Exception")
