@@ -55,7 +55,7 @@ void wateringTimer(SensorHandler *sensorHandler)
 
         //get hummidity Value
         sensorHandler->mtxSensorInterface.lock();
-        float soilHumidity = 0//sensorHandler->sensorInterface->getSoilHumidity();
+        float soilHumidity = 0;//sensorHandler->sensorInterface->getSoilHumidity();
         sensorHandler->mtxSensorInterface.unlock();
 
         std::cout << "Config Data : " << mode << "  " << interval <<
