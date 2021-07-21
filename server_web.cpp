@@ -19,7 +19,7 @@
 #include <iostream>
 #include <fstream>
 
-#define PORT 8001
+#define PORT 8080
 #define BUFLEN 2048
 
 #define MAX_REQUEST_SIZE 2047 //for most browsers the maximum size for a http request
