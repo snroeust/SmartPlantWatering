@@ -25,20 +25,6 @@
 #define MAX_REQUEST_SIZE 2047 //for most browsers the maximum size for a http request
 
 
-std::string executeShell(std::string command)
-{
-   char buffer[128];
-   std::string result = "";
-
-   // Open pipe to file
-   FILE *pipe = popen(command.c_str(), "r");
-   if (!pipe)
-   {
-      return "popen failed!";
-   }
-   
-   return result;
-}
 
 
 void parseQuerryAndCreateJSON(std::string querry)
@@ -332,7 +318,7 @@ void sendHeaderAndFile(struct clientInformation *client, const char *path)
 
 int main(int argc, char *argv[])
 {
-    executeShell("sudo python3 Json_API.py");
+    
     struct sockaddr_in srv_addr;
 
     int srv_fd;
