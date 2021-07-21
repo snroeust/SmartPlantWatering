@@ -41,7 +41,7 @@ while 1:
         if ser.in_waiting > 0:
             soilMoisture = int(ser.readline().decode('utf-8'))
         else:
-            soilMoisture = dataJson{"soilMoisture"}
+            soilMoisture = dataJson["soilMoisture"]
 
 
         result = instance.read()
