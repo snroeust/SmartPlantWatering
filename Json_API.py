@@ -27,7 +27,7 @@ except:
 ser.flush()
 
 
-dataJson = {
+global dataJson = {
     "soilMoisture": 0,
     "temperature": 0,
     "airHumidity": 0
@@ -56,13 +56,11 @@ while 1:
 
     #write json
     try:
-        if dataJson["soilMoisture"] != 0 and dataJson["temperature"] != 0 and dataJson["airHumidity"] != 0: 
-            with open('src/data.json', 'w') as outfile:
-                json.dump(dataJson, outfile)
-            print("Write Json success " + str(dataJson))
         
-        print("No data" + str(dataJson))
-                
+        with open('src/data.json', 'w') as outfile:
+            json.dump(dataJson, outfile)
+        print("Write Json success " + str(dataJson))
+                        
     except:
         print("Write Json Exception")
     
