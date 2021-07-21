@@ -26,8 +26,8 @@ except:
 
 ser.flush()
 
-
-global dataJson = {
+global dataJson
+dataJson = {
     "soilMoisture": 0,
     "temperature": 0,
     "airHumidity": 0
